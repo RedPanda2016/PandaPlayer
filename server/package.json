@@ -10,13 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "body-parser": "^1.9.2",
     "express": "^4.10.1",
     "jwt-simple": "^0.5.0",
-    "sequelize": "^3.27.0",
-    "mysql": "^2.4.2",
     "morgan": "^1.4.1",
+    "mysql": "^2.4.2",
     "q": "^1.4.1",
-    "request": "^2.36.0"
+    "request": "^2.36.0",
+    "sequelize": "^3.27.0"
   }
 }

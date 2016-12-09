@@ -8,7 +8,7 @@ var sequelize = new Sequelize('red_panda', 'root', '', {
 // Verify database is good to go...
 sequelize
   .authenticate()
-  .then(function(err) {
+  .then(function(err) {x
     console.log('MySql connection is OK! Good job!');
   })
   .catch(function(err) {
@@ -17,8 +17,10 @@ sequelize
 
 var Users = sequelize.define('users', {
     userName: {
-      type: Sequelize.STRING,
-      field: 'user_name'
+      type: Sequelize.STRING(8),
+      field: 'user_name',
+      allowNull: false,
+      unique: true
     },
     firstName: {
       type: Sequelize.STRING,
@@ -30,7 +32,8 @@ var Users = sequelize.define('users', {
     },
     email: {
       type: Sequelize.STRING,
-      field: 'email'
+      field: 'email',
+      allowNull: false
     },
 });
 
