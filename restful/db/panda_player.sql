@@ -38,32 +38,8 @@ CREATE TABLE IF NOT EXISTS `redpanda`.`urls` (
   `url` TEXT(100) NOT NULL,
   `users_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `users_id`),
-  INDEX `fk_urls_users1_idx` (`users_id` ASC),
-  CONSTRAINT `fk_urls_users1`
-    FOREIGN KEY (`users_id`)
-    REFERENCES `redpanda`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `redpanda`.`messages`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `redpanda`.`messages` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `message` VARCHAR(100) NOT NULL,
-  `urls_id` INT NOT NULL,
-  `users_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`Id`, `urls_id`, `users_id`),
-  INDEX `fk_messages_urls_idx` (`urls_id` ASC),
-  INDEX `fk_messages_users1_idx` (`users_id` ASC),
-  CONSTRAINT `fk_messages_urls`
-    FOREIGN KEY (`urls_id`)
-    REFERENCES `redpanda`.`urls` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_messages_users1`
+  INDEX `fk_urls_users_idx` (`users_id` ASC),
+  CONSTRAINT `fk_urls_users`
     FOREIGN KEY (`users_id`)
     REFERENCES `redpanda`.`users` (`id`)
     ON DELETE NO ACTION
