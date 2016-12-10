@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prodBuild": "webpack --config ./webpack.prod.config.js --progress --colors",
+<<<<<<< HEAD
     "devBuild": "webpack --config ./webpack.dev.config.js --progress --colors",
+=======
+    "devBuild": "webpack --config ./webpack.dev.config.js --progress --colors --watch",
+>>>>>>> upstream/master
     "start": "node ./app/app.js"
   },
   "repository": {
@@ -51,6 +55,13 @@
     "babel-runtime": "^6.20.0",
     "css-loader": "^0.26.1",
     "eslint": "^3.12.0",
+<<<<<<< HEAD
+=======
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.1",
+    "eslint-plugin-react": "^6.8.0",
+>>>>>>> upstream/master
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.1",
     "node-sass": "^3.13.0",
