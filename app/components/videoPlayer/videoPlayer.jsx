@@ -6,6 +6,7 @@ export default class VideoPlayer extends React.Component {
     super(props);
 
     this.state = {
+      userAdmin: true,
       url: '',
       loggedIn: false,
       playing: false,
@@ -16,7 +17,6 @@ export default class VideoPlayer extends React.Component {
   playPause() {
     this.setState({ playing: !this.state.playing })
   }
-
   stop() {
     this.setState({ url: null, playing: false })
   }
@@ -68,14 +68,31 @@ export default class VideoPlayer extends React.Component {
         />
         <table><tbody>
         <tr>
+          <th>Video</th>
+          <td>
+            <input ref={input => { this.urlInput = input }} type='text' placeholder='Enter URL' />
+            <button onClick={() => this.setState({ url: this.urlInput.value })}>Load</button>
+          </td>
+          <th>duration</th>
+          <td><Duration seconds={duration} /></td>
+          <th>remaining</th>
+          <td><Duration seconds={duration * (1 - played)} /></td>
+        </tr>
+        <tr>
           <th>Controls</th>
           <td>
             <button onClick={this.stop}>Stop</button>
             <button onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</button>
             <button onClick={this.onClickFullscreen}>Fullscreen</button>
           </td>
+          <th>Played</th>
+          <td><progress max={1} value={played} /></td>
         </tr>
         <tr>
+          <th>Volume</th>
+          <td>
+            <input type='range' min={0} max={1} step='any' value={volume} onChange={this.setVolume} />
+          </td>
           <th>Seek</th>
           <td>
             <input
@@ -86,43 +103,6 @@ export default class VideoPlayer extends React.Component {
               onMouseUp={this.onSeekMouseUp}
             />
           </td>
-        </tr>
-        <tr>
-          <th>Volume</th>
-          <td>
-            <input type='range' min={0} max={1} step='any' value={volume} onChange={this.setVolume} />
-          </td>
-        </tr>
-        <tr>
-          <th>Played</th>
-          <td><progress max={1} value={played} /></td>
-        </tr>
-        </tbody></table>
-        <h5>Custom URL</h5>
-        <div>
-          <input ref={input => { this.urlInput = input }} type='text' placeholder='Enter URL' />
-          <button onClick={() => this.setState({ url: this.urlInput.value })}>Load</button>
-        </div>
-        <table><tbody>
-        <tr>
-          <th>url</th>
-          <td className={!url ? 'faded' : ''}>{url || 'null'}</td>
-        </tr>
-        <tr>
-          <th>playing</th>
-          <td>{playing ? 'true' : 'false'}</td>
-        </tr>
-        <tr>
-          <th>duration</th>
-          <td><Duration seconds={duration} /></td>
-        </tr>
-        <tr>
-          <th>elapsed</th>
-          <td><Duration seconds={duration * played} /></td>
-        </tr>
-        <tr>
-          <th>remaining</th>
-          <td><Duration seconds={duration * (1 - played)} /></td>
         </tr>
         </tbody></table>
       </div>
