@@ -95,6 +95,10 @@
 
 	var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
 
+	var _nav = __webpack_require__(136);
+
+	var _nav2 = _interopRequireDefault(_nav);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var App = function (_React$Component) {
@@ -126,7 +130,12 @@
 	            null,
 	            'Well this part works'
 	          ),
-	          React.createElement(_videoPlayer2.default, { video: this.state.currentVideo })
+	          React.createElement(_nav2.default, null),
+	          React.createElement(
+	            'div',
+	            { id: 'mainWindow' },
+	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo })
+	          )
 	        )
 	      );
 	    }
@@ -1714,6 +1723,50 @@
 
 	    var _this = (0, _possibleConstructorReturn3.default)(this, (VideoPlayer.__proto__ || (0, _getPrototypeOf2.default)(VideoPlayer)).call(this, props));
 
+	    _this.load = function (url) {
+	      _this.setState({
+	        url: url,
+	        played: 0,
+	        loaded: 0
+	      });
+	    };
+
+	    _this.playPause = function () {
+	      _this.setState({ playing: !_this.state.playing });
+	    };
+
+	    _this.stop = function () {
+	      _this.setState({ url: null, playing: false });
+	    };
+
+	    _this.setVolume = function (e) {
+	      _this.setState({ volume: parseFloat(e.target.value) });
+	    };
+
+	    _this.onSeekMouseDown = function (e) {
+	      _this.setState({ seeking: true });
+	    };
+
+	    _this.onSeekChange = function (e) {
+	      _this.setState({ played: parseFloat(e.target.value) });
+	    };
+
+	    _this.onSeekMouseUp = function (e) {
+	      _this.setState({ seeking: false });
+	      _this.player.seekTo(parseFloat(e.target.value));
+	    };
+
+	    _this.onProgress = function (state) {
+	      // We only want to update time slider if we are not currently seeking
+	      if (!_this.state.seeking) {
+	        _this.setState(state);
+	      }
+	    };
+
+	    _this.onClickFullscreen = function () {
+	      screenfull.request(findDOMNode(_this.player));
+	    };
+
 	    _this.state = {
 	      userAdmin: true,
 	      url: '',
@@ -1725,42 +1778,6 @@
 	  }
 
 	  (0, _createClass3.default)(VideoPlayer, [{
-	    key: 'playPause',
-	    value: function playPause() {
-	      this.setState({ playing: !this.state.playing });
-	    }
-	  }, {
-	    key: 'stop',
-	    value: function stop() {
-	      this.setState({ url: null, playing: false });
-	    }
-	  }, {
-	    key: 'setVolume',
-	    value: function setVolume(e) {
-	      this.setState({ volume: parseFloat(e.target.value) });
-	    }
-	  }, {
-	    key: 'onSeekMouseDown',
-	    value: function onSeekMouseDown() {
-	      this.setState({ seeking: true });
-	    }
-	  }, {
-	    key: 'onSeekChange',
-	    value: function onSeekChange(e) {
-	      this.setState({ played: parseFloat(e.target.value) });
-	    }
-	  }, {
-	    key: 'onSeekMouseUp',
-	    value: function onSeekMouseUp(e) {
-	      this.setState({ seeking: false });
-	      this.player.seekTo(parseFloat(e.target.value));
-	    }
-	  }, {
-	    key: 'onClickFullscreen',
-	    value: function onClickFullscreen() {
-	      screenfull.request(findDOMNode(this.player));
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -1805,6 +1822,21 @@
 	          }
 	        }),
 	        React.createElement(
+	          'span',
+	          { className: 'bold' },
+	          'Video URL  '
+	        ),
+	        React.createElement('input', { ref: function ref(input) {
+	            _this2.urlInput = input;
+	          }, type: 'text', size: '50', placeholder: 'Enter URL' }),
+	        React.createElement(
+	          'button',
+	          { onClick: function onClick() {
+	              return _this2.setState({ url: _this2.urlInput.value });
+	            } },
+	          'Load'
+	        ),
+	        React.createElement(
 	          'table',
 	          null,
 	          React.createElement(
@@ -1813,25 +1845,6 @@
 	            React.createElement(
 	              'tr',
 	              null,
-	              React.createElement(
-	                'th',
-	                null,
-	                'Video'
-	              ),
-	              React.createElement(
-	                'td',
-	                null,
-	                React.createElement('input', { ref: function ref(input) {
-	                    _this2.urlInput = input;
-	                  }, type: 'text', placeholder: 'Enter URL' }),
-	                React.createElement(
-	                  'button',
-	                  { onClick: function onClick() {
-	                      return _this2.setState({ url: _this2.urlInput.value });
-	                    } },
-	                  'Load'
-	                )
-	              ),
 	              React.createElement(
 	                'th',
 	                null,
@@ -7758,6 +7771,89 @@
 	function pad(string) {
 	  return ('0' + string).slice(-2);
 	}
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(3);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(29);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(30);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(34);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(81);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Nav = function (_React$Component) {
+	  (0, _inherits3.default)(Nav, _React$Component);
+
+	  function Nav(props) {
+	    (0, _classCallCheck3.default)(this, Nav);
+
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (Nav.__proto__ || (0, _getPrototypeOf2.default)(Nav)).call(this, props));
+
+	    _this.loginUser = function () {
+	      swal("Here's a message!", "It's pretty, isn't it?");
+	    };
+
+	    _this.signUp = function () {
+	      swal("Here's another message!");
+	    };
+
+	    _this.state = {
+	      loggedIn: false
+	    };
+	    return _this;
+	  }
+
+	  (0, _createClass3.default)(Nav, [{
+	    key: "render",
+	    value: function render() {
+	      return React.createElement(
+	        "div",
+	        { id: "nav" },
+	        React.createElement(
+	          "h1",
+	          null,
+	          "Red Panda Player"
+	        ),
+	        React.createElement(
+	          "button",
+	          { className: "login", onClick: this.loginUser.bind(this) },
+	          "Login"
+	        ),
+	        React.createElement(
+	          "button",
+	          { className: "logout", onClick: this.signUp.bind(this) },
+	          "Sign Up"
+	        )
+	      );
+	    }
+	  }]);
+	  return Nav;
+	}(React.Component);
+
+	exports.default = Nav;
 
 /***/ }
 /******/ ]);

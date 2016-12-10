@@ -14,29 +14,41 @@ export default class VideoPlayer extends React.Component {
     }
   }
 
-  playPause() {
+  load = url => {
+    this.setState({
+      url,
+      played: 0,
+      loaded: 0
+    })
+  }
+  playPause = () => {
     this.setState({ playing: !this.state.playing })
   }
-  stop() {
+  stop = () => {
     this.setState({ url: null, playing: false })
   }
-  setVolume(e) {
+  setVolume = e => {
     this.setState({ volume: parseFloat(e.target.value) })
   }
-  onSeekMouseDown() {
+  onSeekMouseDown = e => {
     this.setState({ seeking: true })
   }
-  onSeekChange(e) {
+  onSeekChange = e => {
     this.setState({ played: parseFloat(e.target.value) })
   }
-  onSeekMouseUp(e) {
-    this.setState({ seeking: false });
+  onSeekMouseUp = e => {
+    this.setState({ seeking: false })
     this.player.seekTo(parseFloat(e.target.value))
   }
-  onClickFullscreen() {
+  onProgress = state => {
+    // We only want to update time slider if we are not currently seeking
+    if (!this.state.seeking) {
+      this.setState(state)
+    }
+  }
+  onClickFullscreen = () => {
     screenfull.request(findDOMNode(this.player))
   }
-
 
   render() {
     const {
@@ -66,13 +78,11 @@ export default class VideoPlayer extends React.Component {
           onError={e => console.log('onError', e)}
           onEnded={() => this.setState({playing: false})}
         />
+        <span className="bold">Video URL  </span>
+        <input ref={input => { this.urlInput = input }} type='text' size='50' placeholder='Enter URL' />
+        <button onClick={() => this.setState({ url: this.urlInput.value })}>Load</button>
         <table><tbody>
         <tr>
-          <th>Video</th>
-          <td>
-            <input ref={input => { this.urlInput = input }} type='text' placeholder='Enter URL' />
-            <button onClick={() => this.setState({ url: this.urlInput.value })}>Load</button>
-          </td>
           <th>duration</th>
           <td><Duration seconds={duration} /></td>
           <th>remaining</th>
