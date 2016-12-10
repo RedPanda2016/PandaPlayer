@@ -1,11 +1,15 @@
 var db = require('../db/db_controller.js');
 
 module.exports = {
-  getAll: function() { // Gets all the users data and returns and array of objects.
-    db.Users.findAll()
-      .then(function(data) {
-        return data;
-      });
+  getAll: function(res) { // Gets all the users data and returns and array of objects.
+    db.Users.findAll().then(function(all){
+      if (res) { // if res is defined use response to create a json response. This is mostly for the API
+        res.json(all);
+        res.end();
+      } else { // else just return the data as is.
+        return all;
+      }
+    });
   },
   postReg: function(req) { // takes the JSON object for posting new data(see below)
     db.Users.findOrCreate({where: {
@@ -15,23 +19,18 @@ module.exports = {
       email: req.email,
       password: req.password
     },
-    })
-    .then(function(result) {
-      var user = result[0] // the instance of the user
-      var created = result[1] // boolean stating if the user was added already
-      if (created) {
-        return 404;
-      } else {
-        return 201;
-        // may be a good idea to use a callback function here?
-      }
     });
   },
-  getFiltered: function(req) { // takes an object with username --> {userName: 'DaName'}
-    db.Users.findAll({where: userName})
+  getFiltered: function(req, res) { // takes an object with username --> {userName: 'DaName'}
+    db.Users.findAll({where: req})
       .then(function(userPost) {
         if (userPost) {
-          return userPost;
+          if (res) {
+            res.json(userPost);
+            res.end();
+          } else {
+            return userPost;
+          }
           // may need to use a callback here?
         } else {
           return 404;
@@ -49,24 +48,20 @@ module.exports = {
             email: req.email
           },{
           where:{
-              id: req.userName
+              userName: req.userName
             }
           });
         } else {
-          return 'No user by that name.'
+          return 404;
         }
       });
   },
   deleteReg: function(req) { // takes a JSON object (see below)
-    db.Users.findAll({where: {userName: req.userName}})
+    db.Users.findAll({where: req})
       .then(function(userPost) {
-        if (userPost) {
-          where:{
-            userName: req.userName
-          }
-        } else {
-          return 'No user by that name.'
-        }
+        db.Users.destroy({
+          where: req
+        });
       });
   }
 }

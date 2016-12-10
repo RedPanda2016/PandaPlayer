@@ -7,7 +7,7 @@ var query = require('../utilities/query.js');
 module.exports = {
   general: {
     get: function(req, res) {
-      res.end(query.getAll());
+      query.getAll(res);
     },
     post: function(req, res) {
       res.end(query.postReg(req.body));
@@ -15,16 +15,13 @@ module.exports = {
   },
   filtered: {
     get: function(req, res) {
-      console.log('GET2');
-      res.end('GET2');
+      query.getFiltered(req.query, res);
     },
     put: function(req, res) {
-      console.log('PUT')
-      res.end('PUT');
+      res.end(query.putReg(req.body));
     },
     delete: function(req, res) {
-      console.log('DELETE');
-      res.end('DELETE');
+      res.end(query.deleteReg(req.query));
     }
   }
 };

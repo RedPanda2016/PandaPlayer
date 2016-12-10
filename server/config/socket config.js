@@ -11,6 +11,8 @@ module.exports = function(io) {
     // open a connection with sockets.io
     io.sockets.on('connection', function (socket) {
 
+        // var username = socket.username
+
         //add opened socket to connections array
         connections.push(socket);
 
@@ -58,7 +60,7 @@ module.exports = function(io) {
                 // when the client emits 'sendchat', this listens and executes
                 socket.on('sendchat', function (data) {
                     // we tell the client to execute 'updatechat' with 2 parameters
-                    io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+                    io.sockets.in(room).emit('updatechat', socket.username, data);
                 });
         });
 
@@ -113,19 +115,5 @@ module.exports = function(io) {
 
 }
 
-
-
-    // function(req, res) { // add a new post and if needed a username
-    //   db.User.findOrCreate({where: {userName: req.body.userName, firstName: req.body.firstName, lastName: req.body.lastName}})
-    //     .spread(function(user, created) {
-    //       db.Post.create({
-    //         userId: user.get('id'),
-    //         userPost: req.body.userPost
-    //       })
-    //       .then(function(message) {
-    //         res.status(201);
-    //         res.end();
-    //       });
-    //     });    },
 
 

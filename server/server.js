@@ -20,7 +20,7 @@ app.use(parser.json());// parses data to JSON
 
 app.use(cors());
 
-app.use('/', router);
+app.use('/api', router);
 
 // confirmation server is running...
 if (!module.parent) {
