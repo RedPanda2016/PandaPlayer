@@ -21,7 +21,7 @@ module.exports = {
     },
     });
   },
-  getFiltered: function(req, res) { // takes an object with username --> {userName: 'DaName'}
+  getFiltered: function(req, res) { // takes an object with username --> {userName: 'DaName'} --> or params userName?=daName if using AJAX
     db.Users.findAll({where: req})
       .then(function(userPost) {
         if (userPost) {
@@ -66,7 +66,7 @@ module.exports = {
   }
 }
 
-/*
+/* Correct JSON object format... Can leave off password for put and delete.
 
 {
   "userName": "FredDaDude!",

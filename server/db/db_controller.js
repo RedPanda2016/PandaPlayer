@@ -40,7 +40,7 @@ var Users = sequelize.define('users', {
       field: 'password'
     }
 });
-
+/* ------For use after MVP
 // var Urls = sequelize.define('urls', {
 //     url: {
 //       type: Sequelize.STRING,
@@ -63,14 +63,18 @@ var Users = sequelize.define('users', {
 //     field: 'user_id'
 //   }
 // });
+*/
 
-Users.sync();
+
+
 // Urls.sync();
 // Users.hasMany(Urls);
 // Urls.belongsTo(Users);
 // Users.hasMany(Messages);
 // Messages.hasOne(Users);
+------For use after MVP */
 
+Users.sync();
 exports.Users = Users;
 
 
