@@ -63,7 +63,6 @@ var Users = sequelize.define('users', {
 //     field: 'user_id'
 //   }
 // });
-*/
 
 
 
@@ -72,7 +71,8 @@ var Users = sequelize.define('users', {
 // Urls.belongsTo(Users);
 // Users.hasMany(Messages);
 // Messages.hasOne(Users);
-------For use after MVP */
+------For use after MVP
+*/
 
 Users.sync();
 exports.Users = Users;
