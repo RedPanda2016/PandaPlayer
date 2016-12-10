@@ -38,13 +38,14 @@ module.exports = {
     },
 
 
-    emitChatEvent : function (io, currentRoom, user, socket) {
-
-        socket.on('sendchat', function (data) {
+    emitChatEvent : function (io, currentRoom, socket, data) {
             // we tell the client to execute 'updatechat' with 2 parameters
-            io.sockets.in(currentRoom).emit('updatechat', user, data);
-        });
+            io.sockets.in(currentRoom).emit('updatechat', socket, data);
+    },
 
+
+    emitStartVideo: function(io, room) {
+    io.sockets.in(room).emit('startVideo');
     }
 
 }
