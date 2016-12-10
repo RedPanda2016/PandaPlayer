@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79c20774-0d20-4666-b090-274450ad3c89" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/server/config/socket multiroom.js" afterPath="$PROJECT_DIR$/server/config/multiroom (REFERENCE ONLY).js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/socket config.js" afterPath="$PROJECT_DIR$/server/config/socket config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/config/socketUtils.js" afterPath="$PROJECT_DIR$/server/config/socketUtils.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,11 +35,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="socketUtils.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="socketUtils.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/config/socketUtils.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="701">
-              <caret line="47" column="30" lean-forward="true" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+              <caret line="47" column="30" lean-forward="false" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+              <folding>
+                <marker date="1481395775442" expanded="true" signature="61:1672" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="18" column="45" lean-forward="false" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -66,6 +78,7 @@
         <option value="$PROJECT_DIR$/server/config/multiroom (REFERENCE ONLY).js" />
         <option value="$PROJECT_DIR$/server/config/socket config.js" />
         <option value="$PROJECT_DIR$/server/config/socketUtils.js" />
+        <option value="$PROJECT_DIR$/server/server.js" />
       </list>
     </option>
   </component>
@@ -78,11 +91,12 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
     <handled-path value="$PROJECT_DIR$/server/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="107" />
-    <option name="y" value="27" />
+    <option name="x" value="203" />
+    <option name="y" value="79" />
     <option name="width" value="1717" />
     <option name="height" value="1053" />
   </component>
@@ -225,15 +239,15 @@
       <option name="presentableId" value="Default" />
       <updated>1481394045318</updated>
       <workItem from="1481394049428" duration="76000" />
-      <workItem from="1481394290404" duration="1540000" />
+      <workItem from="1481394290404" duration="2633000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1616000" />
+    <option name="totallyTimeSpent" value="2709000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="107" y="27" width="1717" height="1053" extended-state="0" />
+    <frame x="203" y="79" width="1717" height="1053" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2498544" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -286,7 +300,17 @@
     <entry file="file://$PROJECT_DIR$/server/config/socketUtils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="701">
-          <caret line="47" column="30" lean-forward="true" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+          <caret line="47" column="30" lean-forward="false" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+          <folding>
+            <marker date="1481395775442" expanded="true" signature="61:1672" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="18" column="45" lean-forward="false" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
           <folding />
         </state>
       </provider>
