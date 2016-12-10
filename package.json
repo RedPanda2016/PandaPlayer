@@ -1,0 +1,69 @@
+{
+  "name": "pandaplayer",
+  "version": "1.0.0",
+  "description": "Social video player",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prodBuild": "webpack --config ./webpack.prod.config.js --progress --colors",
+    "devBuild": "webpack --config ./webpack.dev.config.js --progress --colors --watch",
+    "start": "node ./app/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedPanda2016/PandaPlayer.git"
+  },
+  "author": "Red Panda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RedPanda2016/PandaPlayer/issues"
+  },
+  "homepage": "https://github.com/RedPanda2016/PandaPlayer#readme",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "jwt-simple": "^0.5.1",
+    "material-ui": "^0.16.5",
+    "morgan": "^1.7.0",
+    "mysql": "^2.12.0",
+    "q": "^1.4.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-player": "^0.12.1",
+    "react-tap-event-plugin": "^2.0.1",
+    "request": "^2.79.0",
+    "sequelize": "^3.27.0",
+    "socket.io": "^1.7.1",
+    "sweetalert": "^1.1.3"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.18.0",
+    "babel-loader": "^6.2.9",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-runtime": "^6.20.0",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.12.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.1",
+    "eslint-plugin-react": "^6.8.0",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.24.1",
+    "node-sass": "^3.13.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-hot-middleware": "^2.13.2"
+  }
+}
