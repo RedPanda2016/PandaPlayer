@@ -8,7 +8,7 @@ var sequelize = new Sequelize('red_panda', 'root', '', {
 // Verify database is good to go...
 sequelize
   .authenticate()
-  .then(function(err) {x
+  .then(function(err) {
     console.log('MySql connection is OK! Good job!');
   })
   .catch(function(err) {
@@ -17,7 +17,7 @@ sequelize
 
 var Users = sequelize.define('users', {
     userName: {
-      type: Sequelize.STRING(8),
+      type: Sequelize.STRING(20),
       field: 'user_name',
       allowNull: false,
       unique: true
@@ -35,25 +35,43 @@ var Users = sequelize.define('users', {
       field: 'email',
       allowNull: false
     },
-});
-
-var Urls = sequelize.define('urls', {
-    url: {
+    password: {
       type: Sequelize.STRING,
-      field: 'url'
-    },
-    userId: {
-      type: Sequelize.INTEGER,
-      field: 'user_id'
+      field: 'password'
     }
 });
 
+// var Urls = sequelize.define('urls', {
+//     url: {
+//       type: Sequelize.STRING,
+//       field: 'url'
+//     },
+//     userId: {
+//       type: Sequelize.INTEGER,
+//       field: 'user_id'
+//     }
+// });
+
+// var Messages = sequelize.define('messages', {
+//   message: {
+//     type: Sequelize.STRING,
+//     field: 'message',
+//     allowNull: false
+//   },
+//   userId: {
+//     type: Sequelize.INTEGER,
+//     field: 'user_id'
+//   }
+// });
+
 Users.sync();
-Urls.sync();
-Users.hasMany(Urls);
-Urls.belongsTo(Users);
+// Urls.sync();
+// Users.hasMany(Urls);
+// Urls.belongsTo(Users);
+// Users.hasMany(Messages);
+// Messages.hasOne(Users);
 
-
+exports.Users = Users;
 
 
 
