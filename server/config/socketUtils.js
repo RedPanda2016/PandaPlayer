@@ -49,10 +49,12 @@ module.exports = {
 
     emitStartVideo: function(io, room) {
         io.sockets.in(room).emit('startVideo');
+        console.log('playPause emitted from server-side!')
     },
 
     emitLoadUrl: function(io, room, url) {
         io.sockets.in(room).emit('loadUrl', url)
+        console.log('playPause emitted from server-side!')
     }
 };
 

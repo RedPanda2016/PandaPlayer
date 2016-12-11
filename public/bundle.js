@@ -123,6 +123,10 @@
 	      _this.setState({ playing: !_this.state.playing });
 	    };
 
+	    _this.emitLoadUrl = function (url) {
+	      socket.emit('URL', url);
+	    };
+
 	    _this.loadUrl = function (url) {
 	      _this.setState({ url: url });
 	    };
@@ -138,7 +142,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      socket.on('startVideo', this.playPause);
-	      socket.on('loadURL', this.loadUrl);
+	      socket.on('loadUrl', this.loadUrl(url));
 	    }
 	  }, {
 	    key: 'render',
@@ -154,7 +158,7 @@
 	          React.createElement(
 	            'div',
 	            { id: 'mainWindow' },
-	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, loadUrl: this.loadUrl, playing: this.state.playing, currentVideo: this.state.url })
+	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, emitLoadUrl: this.loadUrl, playing: this.state.playing, currentVideo: this.state.url })
 	          )
 	        )
 	      );
@@ -1816,7 +1820,7 @@
 	        React.createElement(
 	          'button',
 	          { onClick: function onClick() {
-	              return _this2.props.loadUrl(_this2.urlInput.value);
+	              return _this2.props.emitLoadUrl(_this2.urlInput.value);
 	            } },
 	          'Load'
 	        ),

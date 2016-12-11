@@ -20,14 +20,16 @@ export default class App extends React.Component {
   }
 
   emitPlayPause = () => {
-    socket.emit('playPause')
+    socket.emit('playPause');
+    console.log('playPause emitted from client-side!')
   }
   playPause = () => {
     this.setState({ playing: !this.state.playing })
   }
 
   emitLoadUrl = (url) => {
-    socket.emit('URL', url)
+    socket.emit('URL', url);
+    console.log('url emitted from client-side!')
   }
   loadUrl = (url) => {
     this.setState({ url : url });
@@ -40,7 +42,7 @@ export default class App extends React.Component {
         <div>
           <Nav />
           <div id="mainWindow">
-            <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} emitLoadUrl={this.loadUrl} playing={this.state.playing} currentVideo={this.state.url} />
+            <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} />
           </div>
         </div>
       </div>
