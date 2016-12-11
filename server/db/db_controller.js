@@ -5,9 +5,9 @@ var sequelize = new Sequelize('red_panda', 'root', '', {
   dialect: 'mysql'
 });
 
-// Verify database is good to go...
+
 sequelize
-  .authenticate()
+  .authenticate()// Verify database is good to go...
   .then(function(err) {
     console.log('MySql connection is OK! Good job!');
   })
