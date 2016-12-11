@@ -1,18 +1,26 @@
-export default class App extends React.Component {
+export default class Nav extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       loggedIn: false
-    }
-  }
+    };
+  };
+
+  loginUser = () => {
+    swal("Here's a message!", "It's pretty, isn't it?");
+  };
+
+  signUp = () => {
+    swal("Here's another message!");
+  };
 
   render () {
     return(
       <div id="nav">
         <h1>Red Panda Player</h1>
-        <div className="login"></div>
-        <div className="logout"></div>
+        <button className="login" onClick={this.loginUser.bind(this)}>Login</button>
+        <button className="logout" onClick={this.signUp.bind(this)}>Sign Up</button>
       </div>
     )
   }
