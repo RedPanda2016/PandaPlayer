@@ -1,4 +1,4 @@
-var utils = require ('./socketUtils.js')
+var utils = require ('./socketUtils')
 
 module.exports = function(io) {
 
@@ -51,9 +51,14 @@ module.exports = function(io) {
                     utils.emitChatEvent(io, room, socket, data)
                 });
 
-                socket.on('startVideoSync', function() {
+                socket.on('playPause', function(io, room) {
                     // Sends the command to start the videos.
                     utils.emitStartVideo(io, room);
+                });
+
+                socket.on('URL', function(url) {
+                    // Sends the command to start the videos.
+                    utils.emitLoadUrl(io, room, url);
                 });
 
 
@@ -85,7 +90,7 @@ module.exports = function(io) {
             console.log('Disconnected: %s of sockets connected', connections.length)
         })
 
-    }
+    })
 
 
         // populate rooms?

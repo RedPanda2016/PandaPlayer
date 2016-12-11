@@ -38,14 +38,22 @@ module.exports = {
     },
 
 
-    emitChatEvent : function (io, currentRoom, socket, data) {
+    emitChatEvent : function (io, currentRoom, user, socket) {
+
+        socket.on('sendchat', function (data) {
             // we tell the client to execute 'updatechat' with 2 parameters
-            io.sockets.in(currentRoom).emit('updatechat', socket, data);
+            io.sockets.in(currentRoom).emit('updatechat', user, data);
+        });
+
     },
 
-
     emitStartVideo: function(io, room) {
-    io.sockets.in(room).emit('startVideo');
+        io.sockets.in(room).emit('startVideo');
+    },
+
+    emitLoadUrl: function(io, room, url) {
+        io.sockets.in(room).emit('loadUrl', url)
     }
+};
 
 }
