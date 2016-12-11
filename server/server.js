@@ -4,8 +4,6 @@ var parser = require('body-parser');
 var router = require('./routes');
 var cors = require('cors');
 
-
-
 // create new app and socket event listener
 var app = express();
 var http = require('http').Server(app);
