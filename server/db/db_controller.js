@@ -1,13 +1,13 @@
 var mysql = require('mysql');
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('red_panda', 'root', '', {
+var sequelize = new Sequelize('red_panda', 'root', 'toLr$fp333', {
   host: 'localhost',
   dialect: 'mysql'
 });
 
-// Verify database is good to go...
+
 sequelize
-  .authenticate()
+  .authenticate()// Verify database is good to go...
   .then(function(err) {
     console.log('MySql connection is OK! Good job!');
   })
@@ -40,7 +40,7 @@ var Users = sequelize.define('users', {
       field: 'password'
     }
 });
-
+/* ------For use after MVP
 // var Urls = sequelize.define('urls', {
 //     url: {
 //       type: Sequelize.STRING,
@@ -64,13 +64,17 @@ var Users = sequelize.define('users', {
 //   }
 // });
 
-Users.sync();
+
+
 // Urls.sync();
 // Users.hasMany(Urls);
 // Urls.belongsTo(Users);
 // Users.hasMany(Messages);
 // Messages.hasOne(Users);
+------For use after MVP
+*/
 
+Users.sync();
 exports.Users = Users;
 
 
