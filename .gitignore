@@ -24,12 +24,13 @@ build/
 dist/
 
 # Webstorm Config Files
-.idea/
+.idea/workspace.xml
 
 # Floobits files
 .floo*
 
 # Dependency directorys
+public/bundle.js
 
 # Deployed apps should consider commenting these lines out:
 
