@@ -54,9 +54,8 @@ module.exports = {
 
     emitLoadUrl: function(io, room, url) {
         io.sockets.in(room).emit('loadUrl', url)
-        console.log('playPause emitted from server-side!')
+        console.log('loadUrl emitted from server-side!')
     }
 
-    };
+};
 
-}
