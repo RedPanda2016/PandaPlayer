@@ -114,10 +114,6 @@
 	      console.log('playPause emitted from client-side!');
 	    };
 
-	    _this.playPause = function () {
-	      _this.setState({ playing: !_this.state.playing });
-	    };
-
 	    _this.emitLoadUrl = function (url) {
 	      console.log('clientemit triggered');
 	      socket.emit('URL', { url: url });
@@ -145,6 +141,7 @@
 
 	      socket.on('startVideo', function () {
 	        console.log('video started on clientside');
+	        self.setState({ playing: !self.state.playing });
 	      });
 	    }
 	  }, {

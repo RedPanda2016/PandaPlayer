@@ -20,6 +20,12 @@ io.on('connection', function (socket) {
         console.log('serverside', data.url);
         socket.emit('loadUrl', data.url)
     })
+
+    socket.on('playPause', function() {
+        // Sends the command to start the videos.
+        socket.emit('startVideo')
+        console.log('playpause emitted on serverside')
+    });
 });
 
 require('./config/socketConfig.js')(io);

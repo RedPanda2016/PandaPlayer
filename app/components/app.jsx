@@ -18,22 +18,22 @@ export default class App extends React.Component {
     socket.emit('test');
 
     socket.on('loadUrl', function(data){
-          console.log('url loaded on clientside')
+          console.log('url loaded on clientside');
           self.setState({ url : data });
       });
 
     socket.on('startVideo', function(){
-      console.log('video started on clientside')
+      console.log('video started on clientside');
+      self.setState({ playing: !self.state.playing });
     })
+
+
   }
 
 
   emitPlayPause = () => {
       socket.emit('playPause');
       console.log('playPause emitted from client-side!')
-  }
-  playPause = () => {
-    this.setState({ playing: !this.state.playing })
   }
 
   emitLoadUrl = (url) => {
