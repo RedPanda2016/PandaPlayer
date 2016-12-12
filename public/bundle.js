@@ -119,9 +119,18 @@
 	    };
 
 	    _this.emitLoadUrl = function (url) {
+<<<<<<< HEAD
 	      console.log('clientemit triggered');
 	      socket.emit('URL', { url: url });
 	      console.log(url);
+=======
+	      socket.emit('URL', url);
+	      console.log('url emitted from client-side!');
+	    };
+
+	    _this.loadUrl = function (url) {
+	      _this.setState({ url: url });
+>>>>>>> 8e075f49f8ef919b8aaf98afb454c88e3272e3dd
 	    };
 
 	    _this.state = {
@@ -161,7 +170,11 @@
 	          React.createElement(
 	            'div',
 	            { id: 'mainWindow' },
+<<<<<<< HEAD
 	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, loadUrl: this.loadUrl, emitLoadUrl: this.emitLoadUrl, playing: this.state.playing, currentVideo: this.state.url })
+=======
+	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, emitLoadUrl: this.emitLoadUrl, playing: this.state.playing, currentVideo: this.state.url })
+>>>>>>> 8e075f49f8ef919b8aaf98afb454c88e3272e3dd
 	          )
 	        )
 	      );
