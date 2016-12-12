@@ -8,11 +8,9 @@ export default class Nav extends React.Component {
   };
 
   loginUser = () => {
-    swal("Here's a message!", "It's pretty, isn't it?");
   };
 
   signUp = () => {
-    swal("Here's another message!");
   };
 
   render () {

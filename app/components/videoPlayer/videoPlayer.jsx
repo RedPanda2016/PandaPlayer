@@ -9,27 +9,18 @@ export default class VideoPlayer extends React.Component {
       userAdmin: true,
       url: '',
       loggedIn: false,
-      playing: false,
       loaded: false
     }
   }
 
-  load = url => {
-    this.setState({
-      url,
-      played: 0,
-      loaded: 0
-    })
-  }
-  playPause = () => {
-    this.setState({ playing: !this.state.playing })
-  }
   stop = () => {
     this.setState({ url: null, playing: false })
+    this.props.stopEmitter();
   }
   setVolume = e => {
     this.setState({ volume: parseFloat(e.target.value) })
   }
+  
   onSeekMouseDown = e => {
     this.setState({ seeking: true })
   }
@@ -67,8 +58,8 @@ export default class VideoPlayer extends React.Component {
           className='react-player'
           width={480}
           height={270}
-          url={this.state.url}
-          playing={this.state.playing}
+          url={this.props.currentVideo}
+          playing={this.props.playing}
           volume={volume}
           youtubeConfig={youtubeConfig}
           soundcloudConfig={soundcloudConfig}
@@ -76,11 +67,11 @@ export default class VideoPlayer extends React.Component {
           fileConfig={fileConfig}
           onReady={() => console.log('video is ready')}
           onError={e => console.log('onError', e)}
-          onEnded={() => this.setState({playing: false})}
+          onEnded={() => this.props.playPause()}
         />
         <span className="bold">Video URL  </span>
         <input ref={input => { this.urlInput = input }} type='text' size='50' placeholder='Enter URL' />
-        <button onClick={() => this.setState({ url: this.urlInput.value })}>Load</button>
+        <button onClick={() => this.props.emitLoadUrl(this.urlInput.value)}>Load</button>
         <table><tbody>
         <tr>
           <th>duration</th>
@@ -92,7 +83,7 @@ export default class VideoPlayer extends React.Component {
           <th>Controls</th>
           <td>
             <button onClick={this.stop}>Stop</button>
-            <button onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</button>
+            <button onClick={this.props.emitPlayPause}>{this.props.playing ? 'Pause' : 'Play'}</button>
             <button onClick={this.onClickFullscreen}>Fullscreen</button>
           </td>
           <th>Played</th>
