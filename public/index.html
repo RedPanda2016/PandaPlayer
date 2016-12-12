@@ -6,11 +6,12 @@
   <link rel="stylesheet" type="text/css" href="./styles/styles.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/6.2.1/sweetalert2.css">
   <script src="https://cdn.jsdelivr.net/sweetalert2/6.2.1/sweetalert2.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.js"></script>
-
 </head>
 <body>
+  <script>var socket = io.connect('http://localhost:2727')</script>
   <div id="app"></div>
 
   <script type="text/javascript" src="bundle.js"></script>

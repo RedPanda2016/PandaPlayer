@@ -1,7 +1,6 @@
 import VideoPlayer from './videoPlayer/videoPlayer.jsx'
 import Nav from './nav/nav.jsx'
 
-var socket = io.connect()
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,24 +13,33 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    socket.on('startVideo', this.playPause);
-    socket.on('loadUrl', this.loadUrl(url));
+
+    var self = this;
+    socket.emit('test');
+
+    socket.on('loadUrl', function(data){
+          console.log('url loaded on clientside')
+          self.setState({ url : data });
+      });
+
+    socket.on('startVideo', function(){
+      console.log('video started on clientside')
+    })
   }
 
+
   emitPlayPause = () => {
-    socket.emit('playPause');
-    console.log('playPause emitted from client-side!')
+      socket.emit('playPause');
+      console.log('playPause emitted from client-side!')
   }
   playPause = () => {
     this.setState({ playing: !this.state.playing })
   }
 
   emitLoadUrl = (url) => {
-    socket.emit('URL', url);
-    console.log('url emitted from client-side!')
-  }
-  loadUrl = (url) => {
-    this.setState({ url : url });
+    console.log('clientemit triggered');
+    socket.emit('URL', {url});
+        console.log(url);
   }
     
   render () {
@@ -41,7 +49,7 @@ export default class App extends React.Component {
         <div>
           <Nav />
           <div id="mainWindow">
-            <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} />
+            <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} loadUrl={this.loadUrl} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} />
           </div>
         </div>
       </div>
