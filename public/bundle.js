@@ -117,6 +117,7 @@
 
 	    _this.emitPlayPause = function () {
 	      socket.emit('playPause');
+	      console.log('playPause emitted from client-side!');
 	    };
 
 	    _this.playPause = function () {
@@ -125,6 +126,7 @@
 
 	    _this.emitLoadUrl = function (url) {
 	      socket.emit('URL', url);
+	      console.log('url emitted from client-side!');
 	    };
 
 	    _this.loadUrl = function (url) {
@@ -158,7 +160,7 @@
 	          React.createElement(
 	            'div',
 	            { id: 'mainWindow' },
-	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, emitLoadUrl: this.loadUrl, playing: this.state.playing, currentVideo: this.state.url })
+	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, emitLoadUrl: this.emitLoadUrl, playing: this.state.playing, currentVideo: this.state.url })
 	          )
 	        )
 	      );

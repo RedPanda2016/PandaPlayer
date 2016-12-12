@@ -2,7 +2,7 @@ import VideoPlayer from './videoPlayer/videoPlayer.jsx'
 import Nav from './nav/nav.jsx'
 import ReactPlayer from 'react-player'
 
-var socket = io.connect()
+var socket = io.connect();
 
 export default class App extends React.Component {
   constructor(props) {
