@@ -8,36 +8,9 @@ export default class Nav extends React.Component {
   };
 
   loginUser = () => {
-    swal({
-      title: 'Welcome back! Please login!',
-      input: 'userName',
-      input: 'password',
-      showCancelButton: true,
-      confirmButtonText: 'Submit',
-      showLoaderOnConfirm: true,
-      preConfirm: function (email) {
-        return new Promise(function (resolve, reject) {
-          setTimeout(function() {
-            if (email === 'taken@example.com') {
-              reject('This email is already taken.')
-            } else {
-              resolve()
-            }
-          }, 2000)
-        })
-      },
-      allowOutsideClick: false
-    }).then(function (email) {
-      swal({
-        type: 'success',
-        title: 'Ajax request finished!',
-        html: 'Submitted email: ' + email
-      })
-    })
   };
 
   signUp = () => {
-    swal("Here's another message!");
   };
 
   render () {
