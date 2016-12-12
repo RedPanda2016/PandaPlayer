@@ -24,7 +24,8 @@ build/
 dist/
 
 # Webstorm Config Files
-.idea/workspace.xml
+../.idea/
+./idea
 
 # Floobits files
 .floo*
