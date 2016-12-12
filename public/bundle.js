@@ -119,18 +119,9 @@
 	    };
 
 	    _this.emitLoadUrl = function (url) {
-<<<<<<< HEAD
 	      console.log('clientemit triggered');
 	      socket.emit('URL', { url: url });
 	      console.log(url);
-=======
-	      socket.emit('URL', url);
-	      console.log('url emitted from client-side!');
-	    };
-
-	    _this.loadUrl = function (url) {
-	      _this.setState({ url: url });
->>>>>>> 8e075f49f8ef919b8aaf98afb454c88e3272e3dd
 	    };
 
 	    _this.state = {
@@ -170,11 +161,7 @@
 	          React.createElement(
 	            'div',
 	            { id: 'mainWindow' },
-<<<<<<< HEAD
 	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, loadUrl: this.loadUrl, emitLoadUrl: this.emitLoadUrl, playing: this.state.playing, currentVideo: this.state.url })
-=======
-	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, emitLoadUrl: this.emitLoadUrl, playing: this.state.playing, currentVideo: this.state.url })
->>>>>>> 8e075f49f8ef919b8aaf98afb454c88e3272e3dd
 	          )
 	        )
 	      );
@@ -377,7 +364,7 @@
 	$export.B = 16;  // bind
 	$export.W = 32;  // wrap
 	$export.U = 64;  // safe
-	$export.R = 128; // real proto method for `library`
+	$export.R = 128; // real proto method for `library` 
 	module.exports = $export;
 
 /***/ },
@@ -1588,7 +1575,7 @@
 /* 78 */
 /***/ function(module, exports) {
 
-
+	
 
 /***/ },
 /* 79 */
@@ -2746,7 +2733,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -2875,7 +2862,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 	'use strict';
 
@@ -3319,7 +3306,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -3428,7 +3415,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	function makeEmptyFunction(arg) {
@@ -3469,7 +3456,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -3500,7 +3487,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -3705,7 +3692,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -3750,7 +3737,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -4830,7 +4817,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -5267,7 +5254,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -5698,7 +5685,7 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 *
+	 * 
 	 */
 
 	'use strict';
@@ -6554,7 +6541,7 @@
 /* 124 */
 /***/ function(module, exports) {
 
-
+	
 	module.exports = function load (src, opts, cb) {
 	  var head = document.head || document.getElementsByTagName('head')[0]
 	  var script = document.createElement('script')
