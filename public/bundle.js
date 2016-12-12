@@ -97,8 +97,8 @@
 
 	var _nav = __webpack_require__(136);
 
-	var _nav2 = _interopRequireDefault(_nav);
-
+	var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
+  
 	var _reactPlayer = __webpack_require__(90);
 
 	var _reactPlayer2 = _interopRequireDefault(_reactPlayer);
@@ -1756,6 +1756,30 @@
 
 	    _this.setVolume = function (e) {
 	      _this.setState({ volume: parseFloat(e.target.value) });
+	    };
+
+	    _this.onSeekMouseDown = function (e) {
+	      _this.setState({ seeking: true });
+	    };
+
+	    _this.onSeekChange = function (e) {
+	      _this.setState({ played: parseFloat(e.target.value) });
+	    };
+
+	    _this.onSeekMouseUp = function (e) {
+	      _this.setState({ seeking: false });
+	      _this.player.seekTo(parseFloat(e.target.value));
+	    };
+
+	    _this.onProgress = function (state) {
+	      // We only want to update time slider if we are not currently seeking
+	      if (!_this.state.seeking) {
+	        _this.setState(state);
+	      }
+	    };
+
+	    _this.onClickFullscreen = function () {
+	      screenfull.request(findDOMNode(_this.player));
 	    };
 
 	    _this.state = {
@@ -7811,28 +7835,7 @@
 	    var _this = (0, _possibleConstructorReturn3.default)(this, (Nav.__proto__ || (0, _getPrototypeOf2.default)(Nav)).call(this, props));
 
 	    _this.loginUser = function () {
-	      var _swal;
 
-	      swal((_swal = {
-	        title: 'Welcome back! Please login!',
-	        input: 'userName'
-	      }, (0, _defineProperty3.default)(_swal, 'input', 'password'), (0, _defineProperty3.default)(_swal, 'showCancelButton', true), (0, _defineProperty3.default)(_swal, 'confirmButtonText', 'Submit'), (0, _defineProperty3.default)(_swal, 'showLoaderOnConfirm', true), (0, _defineProperty3.default)(_swal, 'preConfirm', function preConfirm(email) {
-	        return new _promise2.default(function (resolve, reject) {
-	          setTimeout(function () {
-	            if (email === 'taken@example.com') {
-	              reject('This email is already taken.');
-	            } else {
-	              resolve();
-	            }
-	          }, 2000);
-	        });
-	      }), (0, _defineProperty3.default)(_swal, 'allowOutsideClick', false), _swal)).then(function (email) {
-	        swal({
-	          type: 'success',
-	          title: 'Ajax request finished!',
-	          html: 'Submitted email: ' + email
-	        });
-	      });
 	    };
 
 	    _this.signUp = function () {
@@ -8577,6 +8580,5 @@
 	  } catch(e){ /* empty */ }
 	  return safe;
 	};
-
 /***/ }
 /******/ ]);
