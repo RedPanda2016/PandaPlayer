@@ -1,7 +1,6 @@
 ### node etc ###
 
 # Logs
-
 logs
 *.log
 
@@ -31,6 +30,7 @@ dist/
 .floo*
 
 # Dependency directorys
+
 public/bundle.js
 
 # Deployed apps should consider commenting these lines out:
@@ -39,3 +39,4 @@ public/bundle.js
 node_modules/
 bower_components/
 server/node_modules/
+

@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt');
 
 // Create a password salt
 var salt = bcrypt.genSaltSync(10);
-// All query functions stored in and object;
+// All query functions stored in an object;
 var query = require('../utilities/query.js');
 
 module.exports = {
