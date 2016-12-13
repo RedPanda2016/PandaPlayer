@@ -1,7 +1,7 @@
 import VideoPlayer from './videoPlayer/videoPlayer.jsx'
 import chatRoom from './chat/chatRoom.jsx'
 import Nav from './nav/nav.jsx'
-import Messages from './chat/messages.jsx'
+import MessageList from './chat/messages.jsx'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export default class App extends React.Component {
       currentVideo: null,
       url: '',
       playing: false,
-      messages: ''
+      messages: []
     }
      // Bind 'this' to event handlers.
     this.messageSubmitHandler = this.messageSubmitHandler.bind(this);
@@ -23,8 +23,11 @@ export default class App extends React.Component {
 
   messageSubmitHandler(message) {
     console.log('message fired off', message);
-    this.setState({ submitted: true, messages: message});
-    console.log(this.state.messages)
+    var {messages} = this.state;
+    messages.push(message);
+    this.setState({messages});
+    console.log(this.state.messages);
+    socket.emit('sendMessage', {message})
     }
 
   usernameSubmitHandler(name) {
@@ -32,6 +35,7 @@ export default class App extends React.Component {
     console.log(name);
     this.setState({ submitted: true, username: name}) ;
   }
+
 //for <form> this is login section
 
   componentDidMount() {
@@ -47,8 +51,7 @@ export default class App extends React.Component {
     socket.on('startVideo', function(){
       console.log('video started on clientside');
       self.setState({ playing: !self.state.playing });
-    })
-
+    });
 
   }
 
@@ -69,6 +72,8 @@ export default class App extends React.Component {
     console.log('this is the room', room)
   }
 
+
+
   render () {
 
     return (
@@ -82,8 +87,6 @@ export default class App extends React.Component {
             <div>
             <h1>Chat Room</h1>
 
-                <input ref={input => { this.roomName = input }} type='text' size='50' placeholder='create a chatroom' />
-                <button onClick={() => this.emitRoomName(this.roomName.value)}>Submit</button>
 
                 <input ref={input => { this.username = input }} type='text' size='50' placeholder='who are you?' />
                 <button onClick={() => this.usernameSubmitHandler(this.username.value)}>Here I Am!</button>
@@ -92,6 +95,10 @@ export default class App extends React.Component {
                 <input ref={input => { this.message = input }} type='text' size='50' placeholder='what do you want to say?' />
                 <button onClick={() => this.messageSubmitHandler(this.message.value)}>This is what I want to say!</button>
 
+                <input ref={input => { this.roomName = input }} type='text' size='50' placeholder='create a chatroom' />
+                <button onClick={() => this.emitRoomName(this.roomName.value)}>Submit Room Name</button>
+
+                <MessageList messages={this.state.messages} username={this.state.username}/>
 
             </div>
 
