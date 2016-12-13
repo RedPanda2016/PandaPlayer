@@ -13,14 +13,15 @@ export default class VideoPlayer extends React.Component {
     }
   }
 
-  stop = () => {
-    this.setState({ url: null, playing: false })
-    this.props.stopEmitter();
-  }
   setVolume = e => {
     this.setState({ volume: parseFloat(e.target.value) })
   }
   
+  stop = () => {
+    this.setState({ url: null, playing: false })
+    this.props.stopEmitter();
+  }
+
   onSeekMouseDown = e => {
     this.setState({ seeking: true })
   }
@@ -31,6 +32,7 @@ export default class VideoPlayer extends React.Component {
     this.setState({ seeking: false })
     this.player.seekTo(parseFloat(e.target.value))
   }
+  
   onProgress = state => {
     // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
@@ -82,7 +84,7 @@ export default class VideoPlayer extends React.Component {
         <tr>
           <th>Controls</th>
           <td>
-            <button onClick={this.stop}>Stop</button>
+            <button onClick={this.props.emitStop}>Stop</button>
             <button onClick={this.props.emitPlayPause}>{this.props.playing ? 'Pause' : 'Play'}</button>
             <button onClick={this.onClickFullscreen}>Fullscreen</button>
           </td>

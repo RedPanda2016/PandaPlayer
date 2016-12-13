@@ -23,8 +23,8 @@ build/
 dist/
 
 # Webstorm Config Files
-
-./idea
+.idea/
+../.idea/
 
 # Floobits files
 .floo*
@@ -39,3 +39,4 @@ public/bundle.js
 node_modules/
 bower_components/
 server/node_modules/
+

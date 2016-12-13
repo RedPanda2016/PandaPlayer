@@ -12,17 +12,8 @@ app.use(cors());
 var http = require('http').Server(app);
 var io = require ('socket.io')(http)
 
-io.on('connection', function (socket) {
-    socket.on('test', function(){
-        console.log('mounted')
-    })
-    socket.on('URL', function(data) {
-        console.log('serverside', data.url);
-        socket.emit('loadUrl', data.url)
-    })
-});
-
-require('./config/socketConfig.js')(io);
+//socket server-side event emitters
+require ('./config/socketConfig')(io)
 
 // listen on 2727...
 app.set('port', 2727);

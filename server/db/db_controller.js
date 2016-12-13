@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('red_panda', 'root', '', {
+var sequelize = new Sequelize('red_panda', 'root', 'toLr$fp333', {
   host: 'localhost',
   dialect: 'mysql'
 });
