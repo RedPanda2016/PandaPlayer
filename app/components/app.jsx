@@ -16,9 +16,7 @@ export default class App extends React.Component {
       playing: false,
       messages: []
     }
-     // Bind 'this' to event handlers.
-    this.messageSubmitHandler = this.messageSubmitHandler.bind(this);
-    this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
+
   }
 
   messageSubmitHandler(message) {
@@ -45,7 +43,7 @@ export default class App extends React.Component {
   componentDidMount() {
 
     var self = this;
-    socket.emit('test');
+    socket.emit('join');
 
     socket.on('loadUrl', function(data){
           console.log('url loaded on clientside');
