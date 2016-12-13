@@ -42,8 +42,8 @@ export default class App extends React.Component {
 
 
   emitPlayPause = () => {
-      socket.emit('playPause');
-      console.log('playPause emitted from client-side!')
+    socket.emit('playPause');
+    console.log('playPause emitted from client-side!');
   }
   playPause = () => {
     this.setState({ playing: !this.state.playing })
@@ -65,21 +65,31 @@ export default class App extends React.Component {
   signIn = (e) => {
     e.preventDefault();
 
-    this.setState({showSignUp: false});
-    this.setState({showSignIn: false});
-    this.setState({showVideoPlayer: true});
+    var assemble = {
+      userName: this.state.username,
+      password: this.state.password
+    };
 
-    helpers.get();
-
-    // do after GET request
-    this.setState({username: '', firstname: '', lastname: '', email: '', password: ''});
+    $.ajax({
+      url: 'http://127.0.0.1:2727/api/auth',
+      type: 'GET',
+      contentType: 'application/json',
+      data: assemble,
+      success: function(data) {
+        if (data) {
+          this.setState({showSignUp: false});
+          this.setState({showSignIn: false});
+          this.setState({showVideoPlayer: true});
+        }
+        this.setState({username: '', firstname: '', lastname: '', email: '', password: ''});
+      }.bind(this),
+      error: function(err) {
+        console.error(err.toString());
+      }.bind(this)
+    });
   }
 
   signUp = (e) => {
-    e.preventDefault();
-
-    this.setState({showSignUp: false});
-    this.setState({showSignIn: true});
 
     var assemble = {
       userName: this.state.username,
@@ -89,7 +99,21 @@ export default class App extends React.Component {
       password: this.state.password
     };
 
-    helpers.post(assemble);
+    $.ajax({
+      url: 'http://127.0.0.1:2727/api/auth',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(assemble),
+      success: function(data) {
+        this.setState({username: '', firstname: '', lastname: '', email: '', password: ''});
+        this.setState({showSignUp: false});
+        this.setState({showSignIn: true});
+      }.bind(this),
+      error: function(err) {
+        console.error(err.toString());
+      }.bind(this)
+    });
+    e.preventDefault();
   }
 
   handleChange = (e) => {
