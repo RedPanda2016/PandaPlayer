@@ -16,32 +16,7 @@ export default class VideoPlayer extends React.Component {
   setVolume = e => {
     this.setState({ volume: parseFloat(e.target.value) })
   }
-  
-  stop = () => {
-    this.setState({ url: null, playing: false })
-    this.props.stopEmitter();
-  }
-
-  onSeekMouseDown = e => {
-    this.setState({ seeking: true })
-  }
-  onSeekChange = e => {
-    this.setState({ played: parseFloat(e.target.value) })
-  }
-  onSeekMouseUp = e => {
-    this.setState({ seeking: false })
-    this.player.seekTo(parseFloat(e.target.value))
-  }
-  
-  onProgress = state => {
-    // We only want to update time slider if we are not currently seeking
-    if (!this.state.seeking) {
-      this.setState(state)
-    }
-  }
-  onClickFullscreen = () => {
-    screenfull.request(findDOMNode(this.player))
-  }
+ 
 
   render() {
     const {
@@ -76,17 +51,9 @@ export default class VideoPlayer extends React.Component {
         <button onClick={() => this.props.emitLoadUrl(this.urlInput.value)}>Load</button>
         <table><tbody>
         <tr>
-          <th>duration</th>
-          <td><Duration seconds={duration} /></td>
-          <th>remaining</th>
-          <td><Duration seconds={duration * (1 - played)} /></td>
-        </tr>
-        <tr>
           <th>Controls</th>
           <td>
-            <button onClick={this.props.emitStop}>Stop</button>
             <button onClick={this.props.emitPlayPause}>{this.props.playing ? 'Pause' : 'Play'}</button>
-            <button onClick={this.onClickFullscreen}>Fullscreen</button>
           </td>
           <th>Played</th>
           <td><progress max={1} value={played} /></td>
@@ -95,16 +62,6 @@ export default class VideoPlayer extends React.Component {
           <th>Volume</th>
           <td>
             <input type='range' min={0} max={1} step='any' value={volume} onChange={this.setVolume} />
-          </td>
-          <th>Seek</th>
-          <td>
-            <input
-              type='range' min={0} max={1} step='any'
-              value={played}
-              onMouseDown={this.onSeekMouseDown}
-              onChange={this.onSeekChange}
-              onMouseUp={this.onSeekMouseUp}
-            />
           </td>
         </tr>
         </tbody></table>
