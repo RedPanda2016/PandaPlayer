@@ -62,57 +62,77 @@ export default class App extends React.Component {
     console.log('Loggin out')
   }
 
+  swap = () => {
+    if (this.state.showSignIn === false) {
+      this.setState({showSignIn: true, showSignUp: false});
+    } else {
+      this.setState({showSignIn: false, showSignUp: true});
+    }
+  }
+
   signIn = (e) => {
+
+    if (this.state.username !== '' && this.state.password !== '') {
+
+      var assemble = {
+        userName: this.state.username,
+        password: this.state.password
+      };
+
+      $.ajax({
+        url: 'http://127.0.0.1:2727/api/auth',
+        type: 'GET',
+        contentType: 'application/json',
+        data: assemble,
+        success: function(data) {
+          if (data) {
+            this.setState({showSignUp: false});
+            this.setState({showSignIn: false});
+            this.setState({showVideoPlayer: true});
+            this.setState({username: '', firstname: '', lastname: '', email: '', password: ''});
+          } else {
+            alert('Invalid credentials');
+          }
+        }.bind(this),
+        error: function(err) {
+          console.error(err.toString());
+        }.bind(this)
+      });
+    } else {
+      alert('All fields are required');
+    }
     e.preventDefault();
-
-    var assemble = {
-      userName: this.state.username,
-      password: this.state.password
-    };
-
-    $.ajax({
-      url: 'http://127.0.0.1:2727/api/auth',
-      type: 'GET',
-      contentType: 'application/json',
-      data: assemble,
-      success: function(data) {
-        if (data) {
-          this.setState({showSignUp: false});
-          this.setState({showSignIn: false});
-          this.setState({showVideoPlayer: true});
-        }
-        this.setState({username: '', firstname: '', lastname: '', email: '', password: ''});
-      }.bind(this),
-      error: function(err) {
-        console.error(err.toString());
-      }.bind(this)
-    });
   }
 
   signUp = (e) => {
 
-    var assemble = {
-      userName: this.state.username,
-      firstName: this.state.firstname,
-      lastName: this.state.lastname,
-      email: this.state.email,
-      password: this.state.password
-    };
+    if (this.state.username !== '' && this.state.firstname !== '' && this.state.lastname !== '' && this.state.email !== '' && this.state.password !== '') {
 
-    $.ajax({
-      url: 'http://127.0.0.1:2727/api/auth',
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(assemble),
-      success: function(data) {
-        this.setState({username: '', firstname: '', lastname: '', email: '', password: ''});
-        this.setState({showSignUp: false});
-        this.setState({showSignIn: true});
-      }.bind(this),
-      error: function(err) {
-        console.error(err.toString());
-      }.bind(this)
-    });
+      var assemble = {
+        userName: this.state.username,
+        firstName: this.state.firstname,
+        lastName: this.state.lastname,
+        email: this.state.email,
+        password: this.state.password
+      };
+
+      $.ajax({
+        url: 'http://127.0.0.1:2727/api/auth',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(assemble),
+        success: function(data) {
+          this.setState({username: '', firstname: '', lastname: '', email: '', password: ''});
+          this.setState({showSignUp: false});
+          this.setState({showSignIn: true});
+        }.bind(this),
+        error: function(err) {
+          console.error(err.toString());
+        }.bind(this)
+      });
+    } else {
+      alert('All fields are required');
+    }
     e.preventDefault();
   }
 
@@ -125,6 +145,7 @@ export default class App extends React.Component {
       <div>
         <h2>Panda Player</h2>
         <button onClick={this.logout}>logout</button>
+        <button onClick={this.swap}>login/sign up</button>
           <div id="mainWindow">
             {this.state.showSignUp ? <SignUp signUp={this.signUp} handleChange={this.handleChange} /> : null}
             {this.state.showSignIn ? <SignIn signIn={this.signIn} handleChange={this.handleChange} /> : null}

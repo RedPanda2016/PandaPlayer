@@ -143,57 +143,77 @@
 	      console.log('Loggin out');
 	    };
 
+	    _this.swap = function () {
+	      if (_this.state.showSignIn === false) {
+	        _this.setState({ showSignIn: true, showSignUp: false });
+	      } else {
+	        _this.setState({ showSignIn: false, showSignUp: true });
+	      }
+	    };
+
 	    _this.signIn = function (e) {
+
+	      if (_this.state.username !== '' && _this.state.password !== '') {
+
+	        var assemble = {
+	          userName: _this.state.username,
+	          password: _this.state.password
+	        };
+
+	        $.ajax({
+	          url: 'http://127.0.0.1:2727/api/auth',
+	          type: 'GET',
+	          contentType: 'application/json',
+	          data: assemble,
+	          success: function (data) {
+	            if (data) {
+	              this.setState({ showSignUp: false });
+	              this.setState({ showSignIn: false });
+	              this.setState({ showVideoPlayer: true });
+	              this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
+	            } else {
+	              alert('Invalid credentials');
+	            }
+	          }.bind(_this),
+	          error: function (err) {
+	            console.error(err.toString());
+	          }.bind(_this)
+	        });
+	      } else {
+	        alert('All fields are required');
+	      }
 	      e.preventDefault();
-
-	      var assemble = {
-	        userName: _this.state.username,
-	        password: _this.state.password
-	      };
-
-	      $.ajax({
-	        url: 'http://127.0.0.1:2727/api/auth',
-	        type: 'GET',
-	        contentType: 'application/json',
-	        data: assemble,
-	        success: function (data) {
-	          if (data) {
-	            this.setState({ showSignUp: false });
-	            this.setState({ showSignIn: false });
-	            this.setState({ showVideoPlayer: true });
-	          }
-	          this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
-	        }.bind(_this),
-	        error: function (err) {
-	          console.error(err.toString());
-	        }.bind(_this)
-	      });
 	    };
 
 	    _this.signUp = function (e) {
 
-	      var assemble = {
-	        userName: _this.state.username,
-	        firstName: _this.state.firstname,
-	        lastName: _this.state.lastname,
-	        email: _this.state.email,
-	        password: _this.state.password
-	      };
+	      if (_this.state.username !== '' && _this.state.firstname !== '' && _this.state.lastname !== '' && _this.state.email !== '' && _this.state.password !== '') {
 
-	      $.ajax({
-	        url: 'http://127.0.0.1:2727/api/auth',
-	        type: 'POST',
-	        contentType: 'application/json',
-	        data: (0, _stringify2.default)(assemble),
-	        success: function (data) {
-	          this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
-	          this.setState({ showSignUp: false });
-	          this.setState({ showSignIn: true });
-	        }.bind(_this),
-	        error: function (err) {
-	          console.error(err.toString());
-	        }.bind(_this)
-	      });
+	        var assemble = {
+	          userName: _this.state.username,
+	          firstName: _this.state.firstname,
+	          lastName: _this.state.lastname,
+	          email: _this.state.email,
+	          password: _this.state.password
+	        };
+
+	        $.ajax({
+	          url: 'http://127.0.0.1:2727/api/auth',
+	          type: 'POST',
+	          contentType: 'application/json',
+	          data: (0, _stringify2.default)(assemble),
+	          success: function (data) {
+	            this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
+	            this.setState({ showSignUp: false });
+	            this.setState({ showSignIn: true });
+	          }.bind(_this),
+	          error: function (err) {
+	            console.error(err.toString());
+	          }.bind(_this)
+	        });
+	      } else {
+	        alert('All fields are required');
+	      }
 	      e.preventDefault();
 	    };
 
@@ -251,6 +271,11 @@
 	          'button',
 	          { onClick: this.logout },
 	          'logout'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.swap },
+	          'login/sign up'
 	        ),
 	        React.createElement(
 	          'div',
