@@ -17,8 +17,6 @@ connections = [];
 
 io.on('connection', function (socket) {
 
-
-
     connections.push(socket);
     console.log('Connection: %s users connected', connections.length)
 
@@ -46,7 +44,7 @@ io.on('connection', function (socket) {
             console.log('message received on the serverside', message);
             io.sockets.in(defaultRoom).emit('postMessage', message)
         })
-    });
+    })
 });
 
 
