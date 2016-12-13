@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt');
 
 // Create a password salt
 var salt = bcrypt.genSaltSync(10);
+
 // All query functions stored in an object;
 var query = require('../utilities/query.js');
 
@@ -55,14 +56,13 @@ module.exports = {
       });
     },
     signUp: function(req, res) {
-      var passwordToSave = bcrypt.hashSync(req.body.password, salt);
-
+      // var passwordToSave = bcrypt.hashSync(req.body.password, salt);
       var makeData = {
         userName: req.body.userName,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: passwordToSave
+        password: req.body.password
       };
 
       query.postReg(makeData, function(data) {
