@@ -95,7 +95,7 @@
 
 	var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
 
-	var _nav = __webpack_require__(136);
+	var _nav = __webpack_require__(141);
 
 	var _nav2 = _interopRequireDefault(_nav);
 
@@ -7788,7 +7788,12 @@
 	}
 
 /***/ },
-/* 136 */
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
