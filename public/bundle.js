@@ -71,6 +71,10 @@
 	  value: true
 	});
 
+	var _defineProperty2 = __webpack_require__(138);
+
+	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 	var _getPrototypeOf = __webpack_require__(3);
 
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -95,9 +99,13 @@
 
 	var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
 
-	var _nav = __webpack_require__(136);
+	var _sign_in = __webpack_require__(136);
 
-	var _nav2 = _interopRequireDefault(_nav);
+	var _sign_in2 = _interopRequireDefault(_sign_in);
+
+	var _sign_up = __webpack_require__(137);
+
+	var _sign_up2 = _interopRequireDefault(_sign_up);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -124,10 +132,64 @@
 	      console.log(url);
 	    };
 
+	    _this.logout = function () {
+	      _this.setState({ showSignUp: true });
+	      _this.setState({ showSignIn: false });
+	      _this.setState({ showVideoPlayer: false });
+	      console.log('Loggin out');
+	    };
+
+	    _this.signIn = function (e) {
+	      e.preventDefault();
+
+	      _this.setState({ showSignUp: false });
+	      _this.setState({ showSignIn: false });
+	      _this.setState({ showVideoPlayer: true });
+
+	      helpers.get();
+
+	      // do after GET request
+	      _this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
+	    };
+
+	    _this.signUp = function (e) {
+	      e.preventDefault();
+
+	      _this.setState({ showSignUp: false });
+	      _this.setState({ showSignIn: true });
+
+	      var assemble = {
+	        userName: _this.state.username,
+	        firstName: _this.state.firstname,
+	        lastName: _this.state.lastname,
+	        email: _this.state.email,
+	        password: _this.state.password
+	      };
+
+	      helpers.post(assemble);
+	    };
+
+	    _this.handleChange = function (e) {
+	      _this.setState((0, _defineProperty3.default)({}, e.target.name, e.target.value));
+	    };
+
 	    _this.state = {
 	      url: '',
-	      playing: false
+	      loggedIn: false,
+	      username: '',
+	      firstname: '',
+	      lastname: '',
+	      email: '',
+	      password: '',
+	      playing: false,
+	      showSignIn: false,
+	      showSignUp: true,
+	      showVideoPlayer: false
 	    };
+
+	    _this.signUp = _this.signUp.bind(_this);
+	    _this.signIn = _this.signIn.bind(_this);
+	    _this.handleChange = _this.handleChange.bind(_this);
 	    return _this;
 	  }
 
@@ -137,7 +199,6 @@
 
 	      var self = this;
 	      socket.emit('test');
-
 	      socket.on('loadUrl', function (data) {
 	        console.log('url loaded on clientside');
 	        self.setState({ url: data });
@@ -150,19 +211,25 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-
 	      return React.createElement(
 	        'div',
 	        null,
 	        React.createElement(
-	          'div',
+	          'h2',
 	          null,
-	          React.createElement(_nav2.default, null),
-	          React.createElement(
-	            'div',
-	            { id: 'mainWindow' },
-	            React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, loadUrl: this.loadUrl, emitLoadUrl: this.emitLoadUrl, playing: this.state.playing, currentVideo: this.state.url })
-	          )
+	          'Panda Player'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.logout },
+	          'logout'
+	        ),
+	        React.createElement(
+	          'div',
+	          { id: 'mainWindow' },
+	          this.state.showSignUp ? React.createElement(_sign_up2.default, { signUp: this.signUp, handleChange: this.handleChange }) : null,
+	          this.state.showSignIn ? React.createElement(_sign_in2.default, { signIn: this.signIn, handleChange: this.handleChange }) : null,
+	          this.state.showVideoPlayer ? React.createElement(_videoPlayer2.default, { video: this.state.currentVideo, emitPlayPause: this.emitPlayPause, loadUrl: this.loadUrl, emitLoadUrl: this.emitLoadUrl, playing: this.state.playing, currentVideo: this.state.url }) : null
 	        )
 	      );
 	    }
@@ -7819,52 +7886,135 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Nav = function (_React$Component) {
-	  (0, _inherits3.default)(Nav, _React$Component);
+	var SignIn = function (_React$Component) {
+	  (0, _inherits3.default)(SignIn, _React$Component);
 
-	  function Nav(props) {
-	    (0, _classCallCheck3.default)(this, Nav);
+	  function SignIn(props) {
+	    (0, _classCallCheck3.default)(this, SignIn);
 
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (Nav.__proto__ || (0, _getPrototypeOf2.default)(Nav)).call(this, props));
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (SignIn.__proto__ || (0, _getPrototypeOf2.default)(SignIn)).call(this, props));
 
-	    _this.loginUser = function () {};
-
-	    _this.signUp = function () {};
-
-	    _this.state = {
-	      loggedIn: false
-	    };
+	    console.log('signIn');
 	    return _this;
 	  }
 
-	  (0, _createClass3.default)(Nav, [{
+	  (0, _createClass3.default)(SignIn, [{
 	    key: "render",
 	    value: function render() {
 	      return React.createElement(
-	        "div",
-	        { id: "nav" },
-	        React.createElement(
-	          "h1",
-	          null,
-	          "Red Panda Player"
-	        ),
-	        React.createElement(
-	          "button",
-	          { className: "login", onClick: this.loginUser.bind(this) },
-	          "Login"
-	        ),
-	        React.createElement(
-	          "button",
-	          { className: "logout", onClick: this.signUp.bind(this) },
-	          "Sign Up"
-	        )
+	        "form",
+	        { onSubmit: this.props.signIn },
+	        "User Name: ",
+	        React.createElement("input", { type: "text", name: "username", placeholder: "BobJones123!", onChange: this.props.handleChange }),
+	        "Password: ",
+	        React.createElement("input", { type: "password", name: "password", placeholder: "regist123", onChange: this.props.handleChange }),
+	        React.createElement("input", { type: "submit", value: "Submit" })
 	      );
 	    }
 	  }]);
-	  return Nav;
+	  return SignIn;
 	}(React.Component);
 
-	exports.default = Nav;
+	exports.default = SignIn;
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(3);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(29);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(30);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(34);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(81);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var SignUp = function (_React$Component) {
+	  (0, _inherits3.default)(SignUp, _React$Component);
+
+	  function SignUp(props) {
+	    (0, _classCallCheck3.default)(this, SignUp);
+
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (SignUp.__proto__ || (0, _getPrototypeOf2.default)(SignUp)).call(this, props));
+
+	    console.log('signUp');
+	    return _this;
+	  }
+
+	  (0, _createClass3.default)(SignUp, [{
+	    key: "render",
+	    value: function render() {
+
+	      return React.createElement(
+	        "form",
+	        { onSubmit: this.props.signUp },
+	        "User Name: ",
+	        React.createElement("input", { type: "text", name: "username", placeholder: "BobJones123!", onChange: this.props.handleChange }),
+	        "First Name: ",
+	        React.createElement("input", { type: "text", name: "firstname", placeholder: "Bob", onChange: this.props.handleChange }),
+	        "Last Name: ",
+	        React.createElement("input", { type: "text", name: "lastname", placeholder: "Jones", onChange: this.props.handleChange }),
+	        "email: ",
+	        React.createElement("input", { type: "text", name: "email", placeholder: "bob@whatever.com", onChange: this.props.handleChange }),
+	        "Password: ",
+	        React.createElement("input", { type: "password", name: "password", placeholder: "regist123", onChange: this.props.handleChange }),
+	        React.createElement("input", { type: "submit", value: "Submit" })
+	      );
+	    }
+	  }]);
+	  return SignUp;
+	}(React.Component);
+
+	exports.default = SignUp;
+
+/***/ },
+/* 138 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	exports.__esModule = true;
+
+	var _defineProperty = __webpack_require__(31);
+
+	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (obj, key, value) {
+	  if (key in obj) {
+	    (0, _defineProperty2.default)(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+
+	  return obj;
+	};
 
 /***/ }
 /******/ ]);
