@@ -26,7 +26,6 @@ module.exports = function(io) {
         // socket will listen for an adduser event to be emitted from the client
         // this event will be triggered when a user has logged on
 
-            socket.on('userSignedOn', function(username) {
 
             // once the client is connected, server will expect a ping from the client saying which room they would like to join
 
@@ -72,25 +71,20 @@ module.exports = function(io) {
 
         // when the user disconnects from a room
 
-            socket.on('disconnectFromRoom', function(room) {
+            socket.on('disconnect', function(room) {
 
             // echo globally that this client has left
             //     socket.broadcast.emit('updatechat', 'SERVER', socket, ' has disconnected');
                 socket.leave(room);
+                connections.splice(connections.indexOf(socket), 1);
+                //console.log how many sockets are still connected
+                console.log('Disconnected: %s of sockets connected', connections.length)
 
             });
         });
                 // Namespace: Represents a pool of sockets connected under a given scope identified by a pathname (eg: /
 
 
-        //disconnect socket from server
-        socket.on('disconnect', function(data) {
-            connections.splice(connections.indexOf(socket), 1);
-            //console.log how many sockets are still connected
-            console.log('Disconnected: %s of sockets connected', connections.length)
-        })
-
-    })
 
 
         // populate rooms?
