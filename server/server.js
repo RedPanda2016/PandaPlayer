@@ -22,7 +22,7 @@ app.set('port', 2727);
 app.use(morgan('dev'));
 app.use(parser.json());// parses data to JSON
 
-
+// api rout...
 app.use('/api', router);
 
 // confirmation server is running...
