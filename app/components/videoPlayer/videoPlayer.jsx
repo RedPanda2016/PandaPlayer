@@ -1,5 +1,5 @@
 import ReactPlayer from 'react-player'
-import Duration from './duration'
+import Duration from './duration.jsx'
 
 export default class VideoPlayer extends React.Component {
   constructor(props) {
