@@ -16,18 +16,12 @@ export default class App extends React.Component {
       playing: false,
       messages: []
     }
-     // Bind 'this' to event handlers.
-    this.messageSubmitHandler = this.messageSubmitHandler.bind(this);
-    this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
+
   }
 
   messageSubmitHandler(message) {
     console.log('message fired off', message);
-    var {messages} = this.state;
-    messages.push(message);
-    this.setState({messages});
-    console.log(this.state.messages);
-    socket.emit('sendMessage', {message})
+    socket.emit('messageSent',{message})
     }
 
   usernameSubmitHandler(name) {
@@ -36,12 +30,20 @@ export default class App extends React.Component {
     this.setState({ submitted: true, username: name}) ;
   }
 
+  messageReceiveHandler(message) {
+      console.log('messagereceiveHandler FIRED!', message);
+      var {messages}= this.state;
+      messages.push(message);
+      this.setState({messages});
+      console.log(this.state.messages);
+  }
+
 //for <form> this is login section
 
   componentDidMount() {
 
     var self = this;
-    socket.emit('test');
+    socket.emit('join');
 
     socket.on('loadUrl', function(data){
           console.log('url loaded on clientside');
@@ -52,6 +54,11 @@ export default class App extends React.Component {
       console.log('video started on clientside');
       self.setState({ playing: !self.state.playing });
     });
+
+    socket.on('postMessage', function(data){
+        console.log('this is the message received from server', data.message);
+        self.messageReceiveHandler(data.message);
+    })
 
   }
 
