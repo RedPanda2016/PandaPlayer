@@ -56,7 +56,7 @@ export default class VideoPlayer extends React.Component {
     return (
       <div>
         <ReactPlayer
-          ref={player => { this.props.player = player }}
+          ref={player => { this.player = player }}
           className='react-player'
           width={480}
           height={270}
