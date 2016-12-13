@@ -13,8 +13,8 @@ export default class MessageList extends React.Component {
                     this.props.messages.map((message, i) => {
                         return (
                             <div className="message" key={i}>
-                              <strong>{this.props.username} :</strong>
-                              <span> {message}</span>
+                              <strong>{message[1]} :</strong>
+                              <span> {message[0]}</span>
                             </div>
                         );
                     })
