@@ -23,7 +23,7 @@ export default class App extends React.Component {
       playing: false,
       seeking: false,
       player:0,
-      messages: []
+      messages: [],
       showSignIn: false,
       showSignUp: true,
       showVideoPlayer: false
