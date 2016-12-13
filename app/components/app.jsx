@@ -59,7 +59,8 @@ export default class App extends React.Component {
 
   messageSubmitHandler(message, username) {
     console.log('message fired off', message, username);
-     socket.emit('messageSent',{message, username})
+     socket.emit('messageSent',{message, username});
+     this.message.value = '';
   }
 
 
