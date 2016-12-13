@@ -3,9 +3,8 @@ export default class SignUp extends React.Component {
     super(props);
     console.log('signUp')
   }
-
+  // sign up form...notice handleChange, this is updating the state of that inputs name as they are being filled in. When the user clicks 'submit' all that data is sent to the server for authentication.
   render () {
-
     return(
       <form onSubmit={this.props.signUp}>
         User Name: <input type="text" name="username" placeholder="BobJones123!" onChange={this.props.handleChange} />

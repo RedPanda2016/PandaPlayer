@@ -140,10 +140,10 @@
 	      _this.setState({ showSignUp: true });
 	      _this.setState({ showSignIn: false });
 	      _this.setState({ showVideoPlayer: false });
-	      console.log('Loggin out');
+	      _this.setState({ username: '' });
 	    };
 
-	    _this.swap = function () {
+	    _this.signInSignUpswap = function () {
 	      if (_this.state.showSignIn === false) {
 	        _this.setState({ showSignIn: true, showSignUp: false });
 	      } else {
@@ -152,26 +152,32 @@
 	    };
 
 	    _this.signIn = function (e) {
-
+	      // if username and password are not null...
 	      if (_this.state.username !== '' && _this.state.password !== '') {
-
+	        // assembles username and password into and object for GET request...
 	        var assemble = {
 	          userName: _this.state.username,
 	          password: _this.state.password
 	        };
-
+	        // GET request to /api/auth for validation...
 	        $.ajax({
 	          url: 'http://127.0.0.1:2727/api/auth',
 	          type: 'GET',
 	          contentType: 'application/json',
 	          data: assemble,
 	          success: function (data) {
+	            // auth returns a boolean, if the value is true then we alter the state of the app to show the video player...
 	            if (data) {
-	              this.setState({ showSignUp: false });
-	              this.setState({ showSignIn: false });
-	              this.setState({ showVideoPlayer: true });
-	              this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
+	              this.setState({
+	                showSignIn: false,
+	                showVideoPlayer: true,
+	                showSignUp: false,
+	                firstname: '',
+	                lastname: '',
+	                email: '',
+	                password: '' });
 	            } else {
+	              // else alert, note --> user cannot login without valid credentials however this alert will not fire. I also checked that the data is a boolean and it in fact is.
 	              alert('Invalid credentials');
 	            }
 	          }.bind(_this),
@@ -180,15 +186,16 @@
 	          }.bind(_this)
 	        });
 	      } else {
+	        // Alerts user to fill in all fields...
 	        alert('All fields are required');
 	      }
 	      e.preventDefault();
 	    };
 
 	    _this.signUp = function (e) {
-
+	      // if username, firstname, lastname, email and password are not null...
 	      if (_this.state.username !== '' && _this.state.firstname !== '' && _this.state.lastname !== '' && _this.state.email !== '' && _this.state.password !== '') {
-
+	        // Assembles sign up data into and object...
 	        var assemble = {
 	          userName: _this.state.username,
 	          firstName: _this.state.firstname,
@@ -196,22 +203,29 @@
 	          email: _this.state.email,
 	          password: _this.state.password
 	        };
-
+	        // Post request to /api/auth to add user, currently there are no resrcitions on what data can be sent to the server...
 	        $.ajax({
 	          url: 'http://127.0.0.1:2727/api/auth',
 	          type: 'POST',
 	          contentType: 'application/json',
 	          data: (0, _stringify2.default)(assemble),
 	          success: function (data) {
-	            this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
-	            this.setState({ showSignUp: false });
-	            this.setState({ showSignIn: true });
+	            // upon successfully adding user info to db reset all fields to '' and move user to sign in form...
+	            this.setState({
+	              showSignUp: false,
+	              showSignIn: true,
+	              username: '',
+	              firstname: '',
+	              lastname: '',
+	              email: '',
+	              password: '' });
 	          }.bind(_this),
 	          error: function (err) {
 	            console.error(err.toString());
 	          }.bind(_this)
 	        });
 	      } else {
+	        //  alerts user that all fields are required...
 	        alert('All fields are required');
 	      }
 	      e.preventDefault();
@@ -234,7 +248,7 @@
 	      showSignUp: true,
 	      showVideoPlayer: false
 	    };
-
+	    // Binds this to these functions to handle the form data...
 	    _this.signUp = _this.signUp.bind(_this);
 	    _this.signIn = _this.signIn.bind(_this);
 	    _this.handleChange = _this.handleChange.bind(_this);
@@ -256,6 +270,16 @@
 	        console.log('video started on clientside');
 	      });
 	    }
+	    // Handles log out by reverting back to signup page. Currently no session...
+
+	    // switches between login and sign up forms before user is logged in...
+
+	    // handles sign in when submit is clicked in sign in...
+
+	    // handles sign in when submit is clicked in sign up...
+
+	    // Function adds input field data to state
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -274,7 +298,7 @@
 	        ),
 	        React.createElement(
 	          'button',
-	          { onClick: this.swap },
+	          { onClick: this.signInSignUpswap },
 	          'login/sign up'
 	        ),
 	        React.createElement(
@@ -7979,6 +8003,8 @@
 	    console.log('signIn');
 	    return _this;
 	  }
+	  // sign in form...notice handleChange, this is updating the state of that inputs name as they are being filled in. When the user clicks 'submit' all that data is sent to the server for authentication.
+
 
 	  (0, _createClass3.default)(SignIn, [{
 	    key: "render",
@@ -8042,11 +8068,12 @@
 	    console.log('signUp');
 	    return _this;
 	  }
+	  // sign up form...notice handleChange, this is updating the state of that inputs name as they are being filled in. When the user clicks 'submit' all that data is sent to the server for authentication.
+
 
 	  (0, _createClass3.default)(SignUp, [{
 	    key: "render",
 	    value: function render() {
-
 	      return React.createElement(
 	        "form",
 	        { onSubmit: this.props.signUp },

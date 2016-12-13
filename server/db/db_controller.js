@@ -5,16 +5,19 @@ var sequelize = new Sequelize('red_panda', 'root', '', {
   dialect: 'mysql'
 });
 
+// to use this database be sure to start your mysql server in a terminal.
+// then in your mysql editor create a schema named 'red_panda'.
+// now you can use the app to sign up and login users.
 
 sequelize
-  .authenticate()// Verify database is good to go...
+  .authenticate()
   .then(function(err) {
     console.log('MySql connection is OK! Good job!');
   })
   .catch(function(err) {
     console.log('Unable to connect to MySql, heres the err: ', err);
   });
-
+// user table. Only table for the time being. Below tables are for making messages persist after logout and to store a users urls.
 var Users = sequelize.define('users', {
     userName: {
       type: Sequelize.STRING(20),
@@ -77,42 +80,3 @@ var Users = sequelize.define('users', {
 Users.sync();
 exports.Users = Users;
 
-
-
-
-// CREATE SCHEMA IF NOT EXISTS `redpanda` ;
-// USE `redpanda` ;
-
-// -- -----------------------------------------------------
-// -- Table `redpanda`.`users`
-// -- -----------------------------------------------------
-// CREATE TABLE IF NOT EXISTS `redpanda`.`users` (
-//   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-//   `user_name` VARCHAR(10) NOT NULL,
-//   `first_name` VARCHAR(45) NOT NULL,
-//   `last_name` VARCHAR(100) NOT NULL,
-//   `email` VARCHAR(100) NOT NULL,
-//   PRIMARY KEY (`id`))
-// ENGINE = InnoDB;
-
-
-// -- -----------------------------------------------------
-// -- Table `redpanda`.`urls`
-// -- -----------------------------------------------------
-// CREATE TABLE IF NOT EXISTS `redpanda`.`urls` (
-//   `id` INT NOT NULL AUTO_INCREMENT,
-//   `url` TEXT(100) NOT NULL,
-//   `users_id` INT UNSIGNED NOT NULL,
-//   PRIMARY KEY (`id`, `users_id`),
-//   INDEX `fk_urls_users_idx` (`users_id` ASC),
-//   CONSTRAINT `fk_urls_users`
-//     FOREIGN KEY (`users_id`)
-//     REFERENCES `redpanda`.`users` (`id`)
-//     ON DELETE NO ACTION
-//     ON UPDATE NO ACTION)
-// ENGINE = InnoDB;
-
-
-// SET SQL_MODE=@OLD_SQL_MODE;
-// SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-// SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
