@@ -73,24 +73,8 @@ export default class App extends React.Component {
     socket.on('postMessage', function(data){
         console.log('this is the message received from server', data.message);
         self.messageReceiveHandler(data.message);
-    })
-
-    var self = this;
-    socket.emit('test');
-    socket.on('mounted', function(){
-      socket.emit('')
-    }
-    socket.on('loadUrl', function(data){
-          console.log('url loaded on clientside');
-          self.setState({ url : data });
-      });
-
-
-    socket.on('startVideo', function(){
-      console.log('video started on clientside');
-      self.setState({ playing: !self.state.playing });
     });
-
+    
     socket.on('stop', function(){
       console.log('video stopped on clientside');
       self.setState({ url: null, playing: false })
@@ -110,6 +94,7 @@ export default class App extends React.Component {
       self.player.seekTo(parseFloat(e.target.value));
     });
   }
+
   emitPlayPause = () => {
     socket.emit('playPause');
     console.log('playPause emitted from client-side!');
@@ -184,6 +169,7 @@ export default class App extends React.Component {
 
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
+    
   emitRoomName = (room) => {
     console.log('room name emit triggered');
     socket.emit('createRoom', {room});
