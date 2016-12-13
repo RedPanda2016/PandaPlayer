@@ -82,11 +82,11 @@ export default class App extends React.Component {
   }
   // Handles log out by reverting back to signup page. Currently no session...
   logout = () => {
-
-    this.setState({showSignUp: true});
-    this.setState({showSignIn: false});
-    this.setState({showVideoPlayer: false});
-    this.setState({username: ''});
+    this.setState({showSignUp: true,
+                  showSignIn: false,
+                  showVideoPlayer: false,
+                  username: '',
+                  loggedIn: false});
     socket.emit('disconnect')
   }
   // switches between login and sign up forms before user is logged in...
@@ -122,7 +122,9 @@ export default class App extends React.Component {
               firstname: '',
               lastname: '',
               email: '',
-              password: ''});
+              password: '',
+              loggedIn: true
+            });
           } else {
             // else alert, note --> user cannot login without valid credentials however this alert will not fire. I also checked that the data is a boolean and it in fact is.
             alert('Invalid credentials');
