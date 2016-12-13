@@ -16,7 +16,6 @@ export default class VideoPlayer extends React.Component {
   setVolume = e => {
     this.setState({ volume: parseFloat(e.target.value) })
   }
- 
 
   render() {
     const {

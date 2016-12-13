@@ -181,7 +181,7 @@ export default class App extends React.Component {
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
-    
+
   emitRoomName = (room) => {
     console.log('room name emit triggered');
     socket.emit('createRoom', {room});
@@ -191,18 +191,16 @@ export default class App extends React.Component {
   render () {
     return (
       <div>
-        <h2>Panda Player</h2>
-        <button onClick={this.logout}>logout</button>
+        <h2 className="text-center">Panda Player</h2>
+        {this.state.loggedIn ? <input className="logout" type="button" value="logout" onClick={this.logout}/> : null}
         <button onClick={this.signInSignUpswap}>login/sign up</button>
-
         <div id="mainWindow">
           {this.state.showSignUp ? <SignUp signUp={this.signUp} handleChange={this.handleChange} /> : null}
           {this.state.showSignIn ? <SignIn signIn={this.signIn} handleChange={this.handleChange} /> : null}
           {this.state.showVideoPlayer ? <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} loadUrl={this.loadUrl} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} /> : null}
         </div>
-
-        <div>
-        <h1>Chat Room</h1>
+        {this.state.loggedIn ? <div>
+          <h1>Chat Room</h1>
 
           <input ref={input => { this.message = input }} type='text' size='50' placeholder='what do you want to say?' />
           <button onClick={() => this.messageSubmitHandler(this.message.value, this.state.username)}>This is what I want to say!</button>
