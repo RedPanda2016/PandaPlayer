@@ -1,7 +1,5 @@
 import React from 'react';
 import io from 'socket.io-client';
-import user from './users.jsx';
-import Messages from './messages.jsx';
 //import server from '../../../server/server.js';
 //var socket = io.connect();
 
