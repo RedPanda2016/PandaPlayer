@@ -74,7 +74,7 @@ export default class App extends React.Component {
         console.log('this is the message received from server', data.message);
         self.messageReceiveHandler(data.message);
     });
-    
+
     socket.on('stop', function(){
       console.log('video stopped on clientside');
       self.setState({ url: null, playing: false })
@@ -169,7 +169,7 @@ export default class App extends React.Component {
 
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
-    
+  }
   emitRoomName = (room) => {
     console.log('room name emit triggered');
     socket.emit('createRoom', {room});
@@ -204,18 +204,18 @@ export default class App extends React.Component {
     console.log('seekMouseUp emitted from client-side!');
   }
 
-  render () {
+  render() {
     return (
       <div>
-        <h2>Panda Player</h2>
-        <button onClick={this.logout}>logout</button>
+        <h2 className="text-center">Panda Player</h2>
+        {this.state.loggedIn ? <input className="logout" type="button" value="logout" onClick={this.logout}/> : null}
         <div id="mainWindow">
           {this.state.showSignUp ? <SignUp signUp={this.signUp} handleChange={this.handleChange} /> : null}
           {this.state.showSignIn ? <SignIn signIn={this.signIn} handleChange={this.handleChange} /> : null}
           {this.state.showVideoPlayer ? <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} loadUrl={this.loadUrl} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} /> : null}
         </div>
-        <div>
-        <h1>Chat Room</h1>
+        {this.state.loggedIn ? <div>
+          <h1>Chat Room</h1>
           <input ref={input => { this.username = input }} type='text' size='50' placeholder='who are you?' />
           <button onClick={() => this.usernameSubmitHandler(this.username.value)}>Here I Am!</button>
 
@@ -226,7 +226,7 @@ export default class App extends React.Component {
           <button onClick={() => this.emitRoomName(this.roomName.value)}>Submit Room Name</button>
 
           <MessageList messages={this.state.messages} username={this.state.username}/>
-        </div>
+        </div> : null}
       </div>
     )
   }
