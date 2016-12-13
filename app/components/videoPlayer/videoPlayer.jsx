@@ -13,14 +13,14 @@ export default class VideoPlayer extends React.Component {
     }
   }
 
+  setVolume = e => {
+    this.setState({ volume: parseFloat(e.target.value) })
+  }
   stop = () => {
     this.setState({ url: null, playing: false })
     this.props.stopEmitter();
   }
-  setVolume = e => {
-    this.setState({ volume: parseFloat(e.target.value) })
-  }
-  
+
   onSeekMouseDown = e => {
     this.setState({ seeking: true })
   }

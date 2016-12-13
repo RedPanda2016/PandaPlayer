@@ -13,22 +13,32 @@ var io = require ('socket.io')(http)
 
 
 io.on('connection', function (socket) {
-    socket.on('test', function(){
+
+    rooms = [];
+
+    socket.on('test', function() {
         console.log('mounted')
-    })
+    });
+
+
     socket.on('URL', function(data) {
         console.log('serverside', data.url);
         socket.emit('loadUrl', data.url)
-    })
+    });
 
     socket.on('playPause', function() {
         // Sends the command to start the videos.
         socket.emit('startVideo')
         console.log('playpause emitted on serverside')
     });
+
+    socket.on('createRoom', function (newRoom) {
+        rooms.push(newRoom);
+        socket.join(newRoom);
+        console.log('you have successfully created and joined a room', newRoom);
+    });
 });
 
-require('./config/socketConfig.js')(io);
 
 // listen on 2727...
 app.set('port', 2727);

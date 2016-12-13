@@ -1,21 +1,20 @@
 import React from 'react';
-import message from './message.jsx';
 
 export default class Messages extends React.Component {
-  componentDidUpdate() {
-    // There is a new message in the state, scroll to bottom of list
-    const objDiv = document.getElementById('messageList');
-    objDiv.scrollTop = objDiv.scrollHeight;
-  }
 
-  getInitialState() {
-    return {text: ''};
-  }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            username:'',
+            text:''
+        }
+    }
 
   handleSubmit(e) {
     e.preventDefault();
     var message = {
-      user : this.props.user,
+      username : this.state.username,
       text : this.state.text
     }
     this.props.onMessageSubmit(message);

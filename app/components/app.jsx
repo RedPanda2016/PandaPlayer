@@ -1,6 +1,7 @@
 import VideoPlayer from './videoPlayer/videoPlayer.jsx'
 import chatRoom from './chat/chatRoom.jsx'
 import Nav from './nav/nav.jsx'
+import Messages from './chat/messages.jsx'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -12,18 +13,24 @@ export default class App extends React.Component {
       currentChatRoom: null,
       currentVideo: null,
       url: '',
-      playing: false
+      playing: false,
+      messages: ''
     }
      // Bind 'this' to event handlers.
-    this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
+    this.messageSubmitHandler = this.messageSubmitHandler.bind(this);
     this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
   }
-  usernameChangeHandler(event) {
-    this.setState({ username: event.target.value });
-  }
-  usernameSubmitHandler(event) {
-    event.preventDefault();
-    this.setState({ submitted: true, username: this.state.username });
+
+  messageSubmitHandler(message) {
+    console.log('message fired off', message);
+    this.setState({ submitted: true, messages: message});
+    console.log(this.state.messages)
+    }
+
+  usernameSubmitHandler(name) {
+    console.log('this is my name!', name)
+    console.log(name);
+    this.setState({ submitted: true, username: name}) ;
   }
 //for <form> this is login section
 
@@ -45,7 +52,6 @@ export default class App extends React.Component {
 
   }
 
-
   emitPlayPause = () => {
       socket.emit('playPause');
       console.log('playPause emitted from client-side!')
@@ -56,7 +62,13 @@ export default class App extends React.Component {
     socket.emit('URL', {url});
         console.log(url);
   }
-    
+
+  emitRoomName = (room) => {
+    console.log('room name emit triggered');
+    socket.emit('createRoom', {room});
+    console.log('this is the room', room)
+  }
+
   render () {
 
     return (
@@ -68,19 +80,19 @@ export default class App extends React.Component {
             <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} loadUrl={this.loadUrl} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} />
           </div>
             <div>
-            <h1>Chat Rooms</h1>
-              <form onSubmit={this.usernameSubmitHandler} className="username-container">
-                <chatRoom  />
-                <input type="text" placeholder="create a chatroom" />
-                <input type="submit" value="submit" />
-                <input type="text" placeholder="chatrooms" />
-                <input
-                  type="text"
-                  onChange={this.usernameChangeHandler}
-                  placeholder="Enter your name"
-                  required />
-                  <input type="submit" value="submit" />
-              </form>
+            <h1>Chat Room</h1>
+
+                <input ref={input => { this.roomName = input }} type='text' size='50' placeholder='create a chatroom' />
+                <button onClick={() => this.emitRoomName(this.roomName.value)}>Submit</button>
+
+                <input ref={input => { this.username = input }} type='text' size='50' placeholder='who are you?' />
+                <button onClick={() => this.usernameSubmitHandler(this.username.value)}>Here I Am!</button>
+
+
+                <input ref={input => { this.message = input }} type='text' size='50' placeholder='what do you want to say?' />
+                <button onClick={() => this.messageSubmitHandler(this.message.value)}>This is what I want to say!</button>
+
+
             </div>
 
         </div>

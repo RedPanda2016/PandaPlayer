@@ -10,7 +10,7 @@ export default class Message extends React.Component {
           { this.props.username }
         </div>
         <div className='message-body'>
-          { this.props.message }
+          { this.props.state.messages }
         </div>
       </div>
     );
