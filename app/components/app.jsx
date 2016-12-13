@@ -201,12 +201,10 @@ export default class App extends React.Component {
         </div>
         {this.state.loggedIn ? <div>
           <h1>Chat Room</h1>
-
           <input ref={input => { this.message = input }} type='text' size='50' placeholder='what do you want to say?' />
           <button onClick={() => this.messageSubmitHandler(this.message.value, this.state.username)}>This is what I want to say!</button>
-
           <MessageList messages={this.state.messages} />
-        </div>
+        </div> : null }
       </div>
     )
   }
