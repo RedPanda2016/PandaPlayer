@@ -11,8 +11,10 @@ export default class App extends React.Component {
       chatRoom: 'lobby',
       currentChatRoom: null,
       currentVideo: null,
-      url: '',
-      playing: false
+      url: null,
+      playing: false,
+      seeking: false,
+      player:
     }
      // Bind 'this' to event handlers.
     this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
@@ -43,8 +45,42 @@ export default class App extends React.Component {
     })
 
 
-  }
 
+    var self = this;
+    socket.emit('test');
+    socket.on('mounted', function(){
+      socket.emit('')
+    })
+    socket.on('loadUrl', function(data){
+          console.log('url loaded on clientside');
+          self.setState({ url : data });
+      });
+
+
+    socket.on('startVideo', function(){
+      console.log('video started on clientside');
+      self.setState({ playing: !self.state.playing });
+    });
+
+    socket.on('stop', function(){
+      console.log('video stopped on clientside');
+      self.setState({ url: null, playing: false })
+    });
+
+    socket.on('onSeekMouseDown', function(){
+      console.log('onSeekMouseDown on clientside');
+      self.setState({ seeking: true });
+    });
+    socket.on('onSeekChange', function(){
+      console.log('onSeekChange on clientside');
+      self.setState({ played: parseFloat(e.target.value) });
+    });
+    socket.on('onSeekMouseUp', function(){
+      console.log('onSeekMouseUp on clientside');
+      self.setState({ seeking: false })
+      self.player.seekTo(parseFloat(e.target.value));
+    });
+  }
 
   emitPlayPause = () => {
       socket.emit('playPause');
@@ -56,16 +92,42 @@ export default class App extends React.Component {
     socket.emit('URL', {url});
         console.log(url);
   }
-    
+
+  emitStop = () => {
+    socket.emit('stop')
+    console.log('stop emitted from client-side!');
+  }
+
+  onSeekMouseDown = e => {
+    this.setState({ seeking: true })
+  }
+  onSeekChange = e => {
+    this.setState({ played: parseFloat(e.target.value) })
+  }
+  onSeekMouseUp = e => {
+    this.setState({ seeking: false })
+    this.player.seekTo(parseFloat(e.target.value))
+  }
+  emitSeekMouseDown = () => {
+    socket.emit('seekMouseDown');
+    console.log('seekMouseDown from client-side!');
+  }
+  emitSeekChange = e => {
+    socket.emit('seekChange');
+    console.log('seekChange emitted from client-side!');
+  }
+  emitSeekMouseUp = e => {
+    socket.emit('seekMouseUp');
+    console.log('seekMouseUp emitted from client-side!');
+  }
+
   render () {
-
     return (
-
         <div>
           <h1>Well this part works</h1>
           <Nav />
           <div id="mainWindow">
-            <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} loadUrl={this.loadUrl} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} />
+            <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} loadUrl={this.loadUrl} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} emitStop={this.emitStop} player={this.state.player} />
           </div>
             <div>
             <h1>Chat Rooms</h1>

@@ -1,5 +1,5 @@
 import ReactPlayer from 'react-player'
-import Duration from './duration.jsx'
+import Duration from './duration'
 
 export default class VideoPlayer extends React.Component {
   constructor(props) {
@@ -13,24 +13,11 @@ export default class VideoPlayer extends React.Component {
     }
   }
 
-  stop = () => {
-    this.setState({ url: null, playing: false })
-    this.props.stopEmitter();
-  }
   setVolume = e => {
     this.setState({ volume: parseFloat(e.target.value) })
   }
-  
-  onSeekMouseDown = e => {
-    this.setState({ seeking: true })
-  }
-  onSeekChange = e => {
-    this.setState({ played: parseFloat(e.target.value) })
-  }
-  onSeekMouseUp = e => {
-    this.setState({ seeking: false })
-    this.player.seekTo(parseFloat(e.target.value))
-  }
+
+
   onProgress = state => {
     // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
@@ -54,7 +41,7 @@ export default class VideoPlayer extends React.Component {
     return (
       <div>
         <ReactPlayer
-          ref={player => { this.player = player }}
+          ref={player => { this.props.player = player }}
           className='react-player'
           width={480}
           height={270}
@@ -82,7 +69,7 @@ export default class VideoPlayer extends React.Component {
         <tr>
           <th>Controls</th>
           <td>
-            <button onClick={this.stop}>Stop</button>
+            <button onClick={this.props.emitStop}>Stop</button>
             <button onClick={this.props.emitPlayPause}>{this.props.playing ? 'Pause' : 'Play'}</button>
             <button onClick={this.onClickFullscreen}>Fullscreen</button>
           </td>
