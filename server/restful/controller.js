@@ -56,13 +56,13 @@ module.exports = {
       });
     },
     signUp: function(req, res) {
-      // var passwordToSave = bcrypt.hashSync(req.body.password, salt);
+      var passwordToSave = bcrypt.hashSync(req.body.password, salt);
       var makeData = {
         userName: req.body.userName,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password
+        password: passwordToSave
       };
 
       query.postReg(makeData, function(data) {

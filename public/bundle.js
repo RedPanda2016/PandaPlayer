@@ -75,6 +75,10 @@
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
+	var _stringify = __webpack_require__(139);
+
+	var _stringify2 = _interopRequireDefault(_stringify);
+
 	var _getPrototypeOf = __webpack_require__(22);
 
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -139,34 +143,78 @@
 	      console.log('Loggin out');
 	    };
 
+	    _this.swap = function () {
+	      if (_this.state.showSignIn === false) {
+	        _this.setState({ showSignIn: true, showSignUp: false });
+	      } else {
+	        _this.setState({ showSignIn: false, showSignUp: true });
+	      }
+	    };
+
 	    _this.signIn = function (e) {
+
+	      if (_this.state.username !== '' && _this.state.password !== '') {
+
+	        var assemble = {
+	          userName: _this.state.username,
+	          password: _this.state.password
+	        };
+
+	        $.ajax({
+	          url: 'http://127.0.0.1:2727/api/auth',
+	          type: 'GET',
+	          contentType: 'application/json',
+	          data: assemble,
+	          success: function (data) {
+	            if (data) {
+	              this.setState({ showSignUp: false });
+	              this.setState({ showSignIn: false });
+	              this.setState({ showVideoPlayer: true });
+	              this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
+	            } else {
+	              alert('Invalid credentials');
+	            }
+	          }.bind(_this),
+	          error: function (err) {
+	            console.error(err.toString());
+	          }.bind(_this)
+	        });
+	      } else {
+	        alert('All fields are required');
+	      }
 	      e.preventDefault();
-
-	      _this.setState({ showSignUp: false });
-	      _this.setState({ showSignIn: false });
-	      _this.setState({ showVideoPlayer: true });
-
-	      helpers.get();
-
-	      // do after GET request
-	      _this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
 	    };
 
 	    _this.signUp = function (e) {
+
+	      if (_this.state.username !== '' && _this.state.firstname !== '' && _this.state.lastname !== '' && _this.state.email !== '' && _this.state.password !== '') {
+
+	        var assemble = {
+	          userName: _this.state.username,
+	          firstName: _this.state.firstname,
+	          lastName: _this.state.lastname,
+	          email: _this.state.email,
+	          password: _this.state.password
+	        };
+
+	        $.ajax({
+	          url: 'http://127.0.0.1:2727/api/auth',
+	          type: 'POST',
+	          contentType: 'application/json',
+	          data: (0, _stringify2.default)(assemble),
+	          success: function (data) {
+	            this.setState({ username: '', firstname: '', lastname: '', email: '', password: '' });
+	            this.setState({ showSignUp: false });
+	            this.setState({ showSignIn: true });
+	          }.bind(_this),
+	          error: function (err) {
+	            console.error(err.toString());
+	          }.bind(_this)
+	        });
+	      } else {
+	        alert('All fields are required');
+	      }
 	      e.preventDefault();
-
-	      _this.setState({ showSignUp: false });
-	      _this.setState({ showSignIn: true });
-
-	      var assemble = {
-	        userName: _this.state.username,
-	        firstName: _this.state.firstname,
-	        lastName: _this.state.lastname,
-	        email: _this.state.email,
-	        password: _this.state.password
-	      };
-
-	      helpers.post(assemble);
 	    };
 
 	    _this.handleChange = function (e) {
@@ -223,6 +271,11 @@
 	          'button',
 	          { onClick: this.logout },
 	          'logout'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.swap },
+	          'login/sign up'
 	        ),
 	        React.createElement(
 	          'div',
@@ -8015,6 +8068,22 @@
 	}(React.Component);
 
 	exports.default = SignUp;
+
+/***/ },
+/* 139 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(140), __esModule: true };
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var core  = __webpack_require__(9)
+	  , $JSON = core.JSON || (core.JSON = {stringify: JSON.stringify});
+	module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
+	  return $JSON.stringify.apply($JSON, arguments);
+	};
 
 /***/ }
 /******/ ]);
