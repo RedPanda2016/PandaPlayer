@@ -12,17 +12,41 @@ app.use(cors());
 var http = require('http').Server(app);
 var io = require ('socket.io')(http)
 
+
+connections = [];
+
 io.on('connection', function (socket) {
-    socket.on('test', function(){
-        console.log('mounted')
-    })
-    socket.on('URL', function(data) {
-        console.log('serverside', data.url);
-        socket.emit('loadUrl', data.url)
+
+    connections.push(socket);
+    console.log('Connection: %s users connected', connections.length)
+
+    socket.on('join', function(defaultRoom) {
+
+        socket.join(defaultRoom)
+
+        socket.on('URL', function(data) {
+            console.log('serverside', data.url);
+            socket.emit('loadUrl', data.url)
+        });
+
+        socket.on('playPause', function() {
+            // Sends the command to start the videos.
+            socket.emit('startVideo')
+            console.log('playpause emitted on serverside')
+        });
+
+        socket.on('createRoom', function (newRoom) {
+            rooms.push(newRoom);
+            console.log('you have successfully created and joined a room', newRoom);
+        });
+
+        socket.on('messageSent', function(message) {
+            console.log('message received on the serverside', message);
+            io.sockets.in(defaultRoom).emit('postMessage', message)
+        })
     })
 });
 
-require('./config/socketConfig.js')(io);
 
 // listen on 2727...
 app.set('port', 2727);
