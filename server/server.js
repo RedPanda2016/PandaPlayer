@@ -15,6 +15,10 @@ var io = require ('socket.io')(http)
 io.on('connection', function (socket) {
 
     rooms = [];
+    connections = [];
+
+    connections.push(socket);
+    console.log('Connection: %s users connected', connections.length)
 
     socket.on('test', function() {
         console.log('mounted')
@@ -37,6 +41,11 @@ io.on('connection', function (socket) {
         socket.join(newRoom);
         console.log('you have successfully created and joined a room', newRoom);
     });
+
+    socket.on('messageSent', function(message) {
+        console.log('message received on the serverside', message);
+        socket.emit('postMessage', message)
+    })
 });
 
 

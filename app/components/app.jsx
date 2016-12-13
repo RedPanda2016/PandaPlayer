@@ -23,17 +23,21 @@ export default class App extends React.Component {
 
   messageSubmitHandler(message) {
     console.log('message fired off', message);
-    var {messages} = this.state;
-    messages.push(message);
-    this.setState({messages});
-    console.log(this.state.messages);
-    socket.emit('sendMessage', {message})
+    socket.emit('messageSent',{message})
     }
 
   usernameSubmitHandler(name) {
     console.log('this is my name!', name)
     console.log(name);
     this.setState({ submitted: true, username: name}) ;
+  }
+
+  messageReceiveHandler(message) {
+      console.log('messagereceiveHandler FIRED!', message);
+      var {messages}= this.state;
+      messages.push(message);
+      this.setState({messages});
+      console.log(this.state.messages);
   }
 
 //for <form> this is login section
@@ -52,6 +56,11 @@ export default class App extends React.Component {
       console.log('video started on clientside');
       self.setState({ playing: !self.state.playing });
     });
+
+    socket.on('postMessage', function(data){
+        console.log('this is the message received from server', data.message);
+        self.messageReceiveHandler(data.message);
+    })
 
   }
 
