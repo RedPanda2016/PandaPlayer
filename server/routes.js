@@ -12,7 +12,7 @@ router.put('/filtered', controller.filtered.put);
 router.delete('/filtered', controller.filtered.delete);
 //------end Restful API-----------
 
-//------SignIn/SignUp-------
+//------SignIn/SignUp-------> for authentication
 router.get('/auth', controller.auth.signIn);
 router.post('/auth', controller.auth.signUp);
 //------end SignIn/SignUp------

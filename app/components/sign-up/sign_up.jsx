@@ -23,9 +23,8 @@ export default class SignUp extends React.Component {
       this.setState({show: false});
     }
   }
-
+  // sign up form...notice handleChange, this is updating the state of that inputs name as they are being filled in. When the user clicks 'submit' all that data is sent to the server for authentication.
   render () {
-
     return(
       <div className="sign-up-form">
         <input type="button" value="Sign Up" className="sign-up-button" onClick={this.toggleSignUp}/>
