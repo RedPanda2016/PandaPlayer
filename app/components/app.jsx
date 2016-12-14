@@ -22,7 +22,7 @@ export default class App extends React.Component {
       currentVideo: null,
       playing: false,
       messages: [],
-      showSignIn: false,
+      showSignIn: true,
       showSignUp: true,
       showVideoPlayer: false
 
@@ -82,12 +82,14 @@ export default class App extends React.Component {
   }
   // Handles log out by reverting back to signup page. Currently no session...
   logout = () => {
-    this.setState({showSignUp: true,
-                  showSignIn: false,
-                  showVideoPlayer: false,
-                  username: '',
-                  loggedIn: false});
-    socket.emit('disconnect')
+    this.setState({
+      showSignUp: true,
+      showSignIn: true,
+      showVideoPlayer: false,
+      username: '',
+      loggedIn: false
+    });
+    socket.emit('disconnect');
   }
   // switches between login and sign up forms before user is logged in...
   signInSignUpswap = () => {
@@ -195,18 +197,19 @@ export default class App extends React.Component {
       <div>
         <h2 className="text-center">Panda Player</h2>
         {this.state.loggedIn ? <input className="logout" type="button" value="logout" onClick={this.logout}/> : null}
-        <button onClick={this.signInSignUpswap}>login/sign up</button>
-        <div id="mainWindow">
-          {this.state.showSignUp ? <SignUp signUp={this.signUp} handleChange={this.handleChange} /> : null}
-          {this.state.showSignIn ? <SignIn signIn={this.signIn} handleChange={this.handleChange} /> : null}
-          {this.state.showVideoPlayer ? <VideoPlayer video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} loadUrl={this.loadUrl} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} /> : null}
+        <div className="flex-container">
+          <div id="mainWindow">
+            {this.state.showSignUp ? <SignUp signUp={this.signUp} handleChange={this.handleChange} /> : null}
+            {this.state.showSignIn ? <SignIn signIn={this.signIn} handleChange={this.handleChange} /> : null}
+            {this.state.showVideoPlayer ? <VideoPlayer className="video-player"video={this.state.currentVideo}  emitPlayPause={this.emitPlayPause} loadUrl={this.loadUrl} emitLoadUrl={this.emitLoadUrl} playing={this.state.playing} currentVideo={this.state.url} /> : null}
+          </div>
+
+          {this.state.showVideoPlayer ? <div>
+            <input ref={input => { this.message = input }} type='text' size='50' placeholder='what do you want to say?' />
+            <button onClick={() => this.messageSubmitHandler(this.message.value, this.state.username)}>This is what I want to say!</button>
+            <MessageList messages={this.state.messages} />
+          </div> : null }
         </div>
-        {this.state.loggedIn ? <div>
-          <h1>Chat Room</h1>
-          <input ref={input => { this.message = input }} type='text' size='50' placeholder='what do you want to say?' />
-          <button onClick={() => this.messageSubmitHandler(this.message.value, this.state.username)}>This is what I want to say!</button>
-          <MessageList messages={this.state.messages} />
-        </div> : null }
       </div>
     )
   }
