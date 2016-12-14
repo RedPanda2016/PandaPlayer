@@ -196,6 +196,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h2 className="text-center">Panda Player</h2>
+        <div><img src={'.././redpanda.png'} className="redPanda"/></div>
         {this.state.loggedIn ? <input className="logout" type="button" value="logout" onClick={this.logout}/> : null}
         <div className="flex-container">
           <div id="mainWindow">
