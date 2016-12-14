@@ -1,40 +1,60 @@
-.sign-up {
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.sign-up, .sign-in {
 	display: block;
 }
 
-.sign-up-button, .logout{
-    background-color: black;
-    color: white;
-    font-size: 16px;
-    padding: 7.5px;
-    border: none;
-    cursor: pointer;
+.sign-up-button {
+  margin-bottom: 20px;
 }
 
-.sign-up-button:hover, .sign-up-button:focus, .logout:hover, .logout:focus {
+#aa {
+  display: inline;
+  background-color: green;
+}
+
+.video-player {
+  float: left;
+}
+
+.sign-up-button, .logout, .sign-in-button {
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  padding: 7.5px;
+  border: none;
+  cursor: pointer;
+  height: 50px;
+  width: 100px;
+}
+
+.sign-up-button:hover, .sign-up-button:focus, .logout:hover, .logout:focus, .sign-in-button:hover, .sign-in-button:focus {
   background-color: #d3d3d3;
   color: black;
 }
 
 .sign-up-form {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .sign-up-form-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
 .sign-up-form-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 
 .sign-up-form a:hover {background-color: #f1f1f1}

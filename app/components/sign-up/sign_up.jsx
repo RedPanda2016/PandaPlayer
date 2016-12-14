@@ -1,19 +1,10 @@
-import $ from 'jquery'
-
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     console.log('signUp');
     this.state = {
       show: false
-    }
-  }
-  signInSignUpswap = () => { 
-    if (this.state.showSignIn === false) { 
-      this.setState({showSignIn: true, showSignUp: false}); 
-    } else { 
-      this.setState({showSignIn: false, showSignUp: true}); 
-    } 
+    };
   }
 
   toggleSignUp = () => {
